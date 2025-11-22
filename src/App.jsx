@@ -1,21 +1,18 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-      </div>
-      <h1 className='text-3xl font-bold text-red-500'>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
-  )
+    <BrowserRouter>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+        </Routes>
+      </MainLayout>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
