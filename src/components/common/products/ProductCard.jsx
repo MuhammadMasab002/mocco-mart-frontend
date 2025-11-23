@@ -1,5 +1,4 @@
 import React from "react";
-// import { FaHeart, FaRegHeart, FaEye, FaStar } from "react-icons/fa";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";

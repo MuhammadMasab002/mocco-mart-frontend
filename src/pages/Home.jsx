@@ -1,12 +1,13 @@
 import React from "react";
-import Counter from "../components/home/counter";
 import ProductCard from "../components/common/products/ProductCard";
+import HeroSection from "../components/home/HeroSection";
 
 function Home() {
   return (
-    <div className="w-full h-full justify-center items-center flex flex-col gap-4 mt-20">
-      <h1 className="text-3xl font-bold text-red-500">Welcome to Mocco Mart</h1>
-      <Counter />
+    <div className="w-full h-full justify-center items-center flex flex-col gap-4 my-4">
+      {/* <h1 className="text-3xl font-bold text-red-500">Welcome to Mocco Mart</h1> */}
+      <HeroSection />
+
       <div>
         <ProductCard
           title="HAVIT HV-G92 Gamepad"

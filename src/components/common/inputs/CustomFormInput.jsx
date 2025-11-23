@@ -1,4 +1,5 @@
 import React from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
 const CustomFormInput = ({
   label,
@@ -7,10 +8,11 @@ const CustomFormInput = ({
   value,
   onChange,
   required = false,
+  icon = false,
   className = "",
 }) => {
-  const baseStyle =
-    "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500";
+  const inputStyle = "w-full px-1 py-2 bg-transparent focus:outline-none";
+
   return (
     <div className="w-full">
       {label && (
@@ -18,14 +20,32 @@ const CustomFormInput = ({
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        required={required}
-        className={`${baseStyle} ${className} `}
-      />
+
+      {/* OUTER DIV — focus-within enables border change on input focus */}
+      <div
+        className={`
+          flex items-center gap-2 
+          border border-gray-300 rounded 
+          px-2
+          bg-white
+          focus-within:border-red-500 
+          focus-within:ring-2 
+          focus-within:ring-red-400
+          transition
+          ${className}
+        `}
+      >
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          required={required}
+          className={`${inputStyle}`}
+        />
+
+        {icon && <SearchIcon className="text-gray-500 text-xl" />}
+      </div>
     </div>
   );
 };
