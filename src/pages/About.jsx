@@ -1,4 +1,5 @@
-const AboutUs = () => {
+import React from "react";
+const About = () => {
   return (
     <>
       <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
@@ -39,4 +40,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default About;

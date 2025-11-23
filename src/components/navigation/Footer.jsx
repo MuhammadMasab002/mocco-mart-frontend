@@ -75,7 +75,7 @@ const Footer = () => {
         </div>
 
         <div className="container mx-auto px-4 text-center">
-          <p className="ext-center text-gray-500 mt-10 pt-5 border-t border-gray-700 text-sm">
+          <p className="text-center text-gray-500 mt-10 pt-5 border-t border-gray-700 text-sm">
             © {new Date().getFullYear()} Mocco Mart. All Rights Reserved.
           </p>
         </div>

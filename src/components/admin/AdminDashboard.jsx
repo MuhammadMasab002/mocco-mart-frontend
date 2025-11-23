@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Dashboard = ({
+const AdminDashboard = ({
   stats,
   orders,
   products,
@@ -171,4 +171,4 @@ const Dashboard = ({
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

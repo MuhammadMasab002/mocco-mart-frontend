@@ -11,7 +11,7 @@ const Header = () => {
     setSearch(e.target.value);
   };
   return (
-    <header className="w-full bg-white shadow-md py-4 px-8">
+    <header className="w-full sticky top-0 bg-white shadow-md py-4 px-8 z-[9999]">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <h1 className="text-xl font-bold text-gray-800">
           <a href="/" className="hover:text-blue-600">
@@ -58,7 +58,7 @@ const Header = () => {
               fontSize="large"
             />
             <PersonOutlineIcon
-              className="rounded-full bg-gray-100 hover:text-red-600 cursor-pointer p-1"
+              className="rounded-full bg-red-100 text-red-600 cursor-pointer p-1"
               fontSize="large"
             />
           </div>

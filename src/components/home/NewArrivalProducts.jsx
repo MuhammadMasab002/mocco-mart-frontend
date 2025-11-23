@@ -5,9 +5,9 @@ const arrivalData = [
   {
     id: 1,
     title: "PlayStation 5",
-    description: "Red and White version now on sale.",
+    description: "White and Blue version now on sale.",
     image:
-      "https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?q=80&w=1974&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link: "#",
     size: "large", // big left section
   },

@@ -4,7 +4,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
 import CustomButton from "../components/common/CustomButton";
 
-function ContactUs() {
+function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -149,4 +149,4 @@ function ContactUs() {
   );
 }
 
-export default ContactUs;
+export default Contact;

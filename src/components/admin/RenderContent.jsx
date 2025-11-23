@@ -1,0 +1,125 @@
+import CustomTable from "./CustomTable";
+import AdminDashboard from "./AdminDashboard";
+
+const RenderContent = ({
+  activeTab,
+  stats,
+  products,
+  orders,
+  categories,
+  revenueData,
+  categoryData,
+  COLORS,
+  handleCreate,
+  handleEdit,
+  handleDelete,
+  subcategories,
+}) => {
+  switch (activeTab) {
+    case "dashboard":
+      return (
+        <AdminDashboard
+          stats={stats}
+          products={products}
+          orders={orders}
+          revenueData={revenueData}
+          categoryData={categoryData}
+          COLORS={COLORS}
+        />
+      );
+    case "categories":
+      return (
+        <CustomTable
+          type="category"
+          data={categories}
+          columns={[
+            { key: "name", label: "Name" },
+            { key: "description", label: "Description" },
+            { key: "productCount", label: "Products" },
+          ]}
+          handleCreate={handleCreate}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      );
+    case "subcategories":
+      return (
+        <CustomTable
+          type="subcategory"
+          data={subcategories}
+          columns={[
+            { key: "name", label: "Name" },
+            { key: "categoryName", label: "Category" },
+          ]}
+          handleCreate={handleCreate}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      );
+    case "products":
+      return (
+        <CustomTable
+          type="product"
+          data={products}
+          columns={[
+            { key: "name", label: "Name" },
+            { key: "category", label: "Category" },
+            { key: "subcategory", label: "Subcategory" },
+            { key: "price", label: "Price" },
+            { key: "stock", label: "Stock" },
+          ]}
+          handleCreate={handleCreate}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      );
+    case "orders":
+      return (
+        <CustomTable
+          type="order"
+          data={orders}
+          columns={[
+            { key: "id", label: "Order ID" },
+            { key: "customer", label: "Customer" },
+            { key: "product", label: "Product" },
+            { key: "amount", label: "Amount" },
+            { key: "status", label: "Status" },
+            { key: "date", label: "Date" },
+          ]}
+          handleCreate={handleCreate}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      );
+    case "users":
+      return (
+        <CustomTable
+          type="user"
+          data={orders}
+          columns={[
+            { key: "name", label: "Name" },
+            { key: "email", label: "Email" },
+            { key: "role", label: "Role" },
+            { key: "status", label: "Status" },
+            { key: "joined", label: "Joined" },
+          ]}
+          handleCreate={handleCreate}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      );
+    default:
+      return (
+        <AdminDashboard
+          stats={stats}
+          products={products}
+          orders={orders}
+          revenueData={revenueData}
+          categoryData={categoryData}
+          COLORS={COLORS}
+        />
+      );
+  }
+};
+
+export default RenderContent;

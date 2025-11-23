@@ -5,13 +5,13 @@ import {
   ShoppingCart,
   Package,
   DollarSign,
-  Menu,
-  X,
+  LayoutDashboard,
+  Folders,
+  FolderTree,
 } from "lucide-react";
-import Dashboard from "../components/admin/Dashboard";
-import CustomTable from "../components/admin/CustomTable";
 import CustomModal from "../components/admin/CustomModal";
 import AdminSidebar from "../components/admin/AdminSidebar";
+import RenderContent from "../components/admin/RenderContent";
 
 // Initial Mock Data
 const initialCategories = [
@@ -152,7 +152,7 @@ const categoryData = [
 
 const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"];
 
-function AdminDashboard() {
+function AdminPanel() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -329,125 +329,17 @@ function AdminDashboard() {
     setFormData({});
   };
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case "dashboard":
-        return (
-          <Dashboard
-            stats={stats}
-            products={products}
-            orders={orders}
-            revenueData={revenueData}
-            categoryData={categoryData}
-            COLORS={COLORS}
-          />
-        );
-      case "categories":
-        return (
-          <CustomTable
-            type="category"
-            data={categories}
-            columns={[
-              { key: "name", label: "Name" },
-              { key: "description", label: "Description" },
-              { key: "productCount", label: "Products" },
-            ]}
-            handleCreate={handleCreate}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        );
-      case "subcategories":
-        return (
-          <CustomTable
-            type="subcategory"
-            data={subcategories}
-            columns={[
-              { key: "name", label: "Name" },
-              { key: "categoryName", label: "Category" },
-            ]}
-            handleCreate={handleCreate}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        );
-      case "products":
-        return (
-          <CustomTable
-            type="product"
-            data={products}
-            columns={[
-              { key: "name", label: "Name" },
-              { key: "category", label: "Category" },
-              { key: "subcategory", label: "Subcategory" },
-              { key: "price", label: "Price" },
-              { key: "stock", label: "Stock" },
-            ]}
-            handleCreate={handleCreate}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        );
-      case "orders":
-        return (
-          <CustomTable
-            type="order"
-            data={orders}
-            columns={[
-              { key: "id", label: "Order ID" },
-              { key: "customer", label: "Customer" },
-              { key: "product", label: "Product" },
-              { key: "amount", label: "Amount" },
-              { key: "status", label: "Status" },
-              { key: "date", label: "Date" },
-            ]}
-            handleCreate={handleCreate}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        );
-      case "users":
-        return (
-          <CustomTable
-            type="user"
-            data={orders}
-            columns={[
-              { key: "name", label: "Name" },
-              { key: "email", label: "Email" },
-              { key: "role", label: "Role" },
-              { key: "status", label: "Status" },
-              { key: "joined", label: "Joined" },
-            ]}
-            handleCreate={handleCreate}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        );
-      default:
-        return (
-          <Dashboard
-            stats={stats}
-            products={products}
-            orders={orders}
-            revenueData={revenueData}
-            categoryData={categoryData}
-            COLORS={COLORS}
-          />
-        );
-    }
-  };
-
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: BarChart },
-    { id: "categories", label: "Categories", icon: Package },
-    { id: "subcategories", label: "Subcategories", icon: Package },
-    { id: "products", label: "Products", icon: ShoppingCart },
+    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { id: "categories", label: "Categories", icon: Folders },
+    { id: "subcategories", label: "Subcategories", icon: FolderTree },
+    { id: "products", label: "Products", icon: Package },
     { id: "orders", label: "Orders", icon: ShoppingCart },
     { id: "users", label: "Users", icon: Users },
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex w-full h-screen bg-gray-100">
       {/* Sidebar */}
       <AdminSidebar
         sidebarOpen={sidebarOpen}
@@ -458,15 +350,28 @@ function AdminDashboard() {
       />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
+      <div className="w-[200px] flex-1 overflow-auto">
         <div className="p-8">
-          <div className="mb-6">
+          <div className="mb-6 mt-6 md:mt-0">
             <h1 className="text-3xl font-bold text-gray-800 capitalize">
               {activeTab}
             </h1>
             <p className="text-gray-600 mt-1">Manage your {activeTab} here</p>
           </div>
-          {renderContent()}
+          <RenderContent
+            activeTab={activeTab}
+            stats={stats}
+            products={products}
+            orders={orders}
+            categories={categories}
+            revenueData={revenueData}
+            categoryData={categoryData}
+            COLORS={COLORS}
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            subcategories={subcategories}
+          />
         </div>
       </div>
 
@@ -485,4 +390,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default AdminPanel;

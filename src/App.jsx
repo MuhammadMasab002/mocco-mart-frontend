@@ -7,32 +7,43 @@ import ProductDetail from "./pages/ProductDetail";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Wishlist from "./pages/WishList";
-import ContactUs from "./pages/ContactUs";
-import AboutUs from "./pages/AboutUs";
 import MyProfile from "./pages/MyProfile";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminLayout from "./layouts/AdminLayout";
+import AdminPanel from "./pages/AdminPanel";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 function App() {
   return (
     <BrowserRouter>
-      <MainLayout>
-        <Routes>
+      <Routes>
+        <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product-detail" element={<ProductDetail />} />
           <Route path="/wishlist" element={<Wishlist />} />
 
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
           <Route path="/my-profile" element={<MyProfile />} />
-
-          <Route path="/dashboard" element={<AdminDashboard />} />
 
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </MainLayout>
+        </Route>
+
+        {/* Admin Pages */}
+        <Route
+          path="/admin"
+          element={
+            //  <AdminRoute user={user}>
+            <AdminLayout>
+              <AdminPanel />
+            </AdminLayout>
+            //  </AdminRoute>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 }
