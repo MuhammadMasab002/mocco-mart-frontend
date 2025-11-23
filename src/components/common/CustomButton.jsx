@@ -21,6 +21,8 @@ const CustomButton = ({
       "border border-gray-400 text-gray-700 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-60",
     success:
       "bg-green-600 text-white hover:bg-green-700 active:bg-green-800 disabled:bg-green-300",
+    textDanger:
+      "bg-transparent text-red-600 font-semibold hover:underline disabled:text-red-300",
   };
 
   return (

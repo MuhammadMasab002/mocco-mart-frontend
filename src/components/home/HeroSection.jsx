@@ -37,7 +37,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 mt-6 flex gap-6">
+    <div className="w-full max-w-7xl mx-auto md:px-4 mt-6 flex gap-6">
       <CategoryMenu categories={categories} />
       <HeroSlider slides={slides} />
     </div>

@@ -11,8 +11,6 @@ const ProductCard = ({
   price,
   oldPrice,
   discount,
-  rating,
-  reviews,
   onAddToCart,
   onClick,
   isWishlisted = false,
@@ -20,7 +18,7 @@ const ProductCard = ({
 }) => {
   return (
     <div
-      className="relative bg-white shadow-md rounded-lg overflow-hidden p-3 cursor-pointer group"
+      className="relative bg-white shadow-sm hover:shadow-lg hover:shadow-red-100 rounded-lg overflow-hidden cursor-pointer group transition"
       onClick={onClick}
     >
       {/* Discount Badge */}
@@ -57,20 +55,21 @@ const ProductCard = ({
       </div>
 
       {/* Product Image */}
-      <div className="relative w-full h-60 flex justify-center items-center overflow-hidden">
+      <div className="relative w-full h-52 flex justify-center items-center overflow-hidden">
         <img
           src={image}
           alt={title}
-          className="object-contain w-full h-full transition-transform duration-300 group-hover:scale-105"
+          className="object-cover object-center w-full h-full transition-transform duration-300 group-hover:scale-105"
         />
         {/* Add to Cart (Hover Button) */}
         <div
           className="absolute bottom-0 left-0 right-0 w-ful text-white text-center text-sm opacity-0 
-        group-hover:opacity-100 transition-opacity duration-300"
+        group-hover:opacity-100 transition-opacity ease-in-out duration-300"
         >
           <CustomButton
             buttonText="Add to Cart"
             variant="dark"
+            className="rounded-none"
             onClick={(e) => {
               e.stopPropagation();
               onAddToCart();
@@ -80,8 +79,8 @@ const ProductCard = ({
       </div>
 
       {/* Product Info */}
-      <div className="mt-4">
-        <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">
+      <div className="px-3 py-4 mb-2">
+        <h3 className="text-sm md:text-base font-medium text-gray-800 line-clamp-2 truncate max-w-72">
           {title}
         </h3>
 
@@ -91,19 +90,6 @@ const ProductCard = ({
           <span className="text-gray-400 line-through text-sm">
             ${oldPrice}
           </span>
-        </div>
-
-        {/* Rating */}
-        <div className="flex items-center gap-1 mt-1">
-          {[...Array(5)].map((_, i) => (
-            <StarIcon
-              key={i}
-              className={`${
-                i < rating ? "text-yellow-400" : "text-gray-300"
-              } text-sm`}
-            />
-          ))}
-          <span className="text-gray-500 text-sm ml-1">({reviews})</span>
         </div>
       </div>
     </div>
