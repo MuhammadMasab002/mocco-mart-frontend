@@ -1,0 +1,488 @@
+import { useState } from "react";
+import { BarChart } from "recharts";
+import {
+  Users,
+  ShoppingCart,
+  Package,
+  DollarSign,
+  Menu,
+  X,
+} from "lucide-react";
+import Dashboard from "../components/admin/Dashboard";
+import CustomTable from "../components/admin/CustomTable";
+import CustomModal from "../components/admin/CustomModal";
+import AdminSidebar from "../components/admin/AdminSidebar";
+
+// Initial Mock Data
+const initialCategories = [
+  {
+    id: 1,
+    name: "Electronics",
+    description: "Electronic devices and accessories",
+    productCount: 45,
+  },
+  {
+    id: 2,
+    name: "Clothing",
+    description: "Men and Women fashion",
+    productCount: 120,
+  },
+  {
+    id: 3,
+    name: "Books",
+    description: "Books and magazines",
+    productCount: 89,
+  },
+];
+
+const initialSubcategories = [
+  { id: 1, name: "Smartphones", categoryId: 1, categoryName: "Electronics" },
+  { id: 2, name: "Laptops", categoryId: 1, categoryName: "Electronics" },
+  { id: 3, name: "Men Shirts", categoryId: 2, categoryName: "Clothing" },
+  { id: 4, name: "Women Dresses", categoryId: 2, categoryName: "Clothing" },
+];
+
+const initialProducts = [
+  {
+    id: 1,
+    name: "iPhone 15 Pro",
+    category: "Electronics",
+    subcategory: "Smartphones",
+    price: 999,
+    stock: 45,
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "MacBook Pro M3",
+    category: "Electronics",
+    subcategory: "Laptops",
+    price: 1999,
+    stock: 8,
+    status: "Active",
+  },
+  {
+    id: 3,
+    name: "Cotton T-Shirt",
+    category: "Clothing",
+    subcategory: "Men Shirts",
+    price: 29,
+    stock: 150,
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "Summer Dress",
+    category: "Clothing",
+    subcategory: "Women Dresses",
+    price: 59,
+    stock: 3,
+    status: "Active",
+  },
+];
+
+const initialOrders = [
+  {
+    id: 1001,
+    customer: "John Doe",
+    product: "iPhone 15 Pro",
+    amount: 999,
+    status: "Delivered",
+    date: "2024-11-20",
+  },
+  {
+    id: 1002,
+    customer: "Jane Smith",
+    product: "MacBook Pro M3",
+    amount: 1999,
+    status: "Pending",
+    date: "2024-11-22",
+  },
+  {
+    id: 1003,
+    customer: "Bob Johnson",
+    product: "Cotton T-Shirt",
+    amount: 29,
+    status: "Shipped",
+    date: "2024-11-21",
+  },
+];
+
+const initialUsers = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Customer",
+    status: "Active",
+    joined: "2024-01-15",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane@example.com",
+    role: "Customer",
+    status: "Active",
+    joined: "2024-02-20",
+  },
+  {
+    id: 3,
+    name: "Admin User",
+    email: "admin@example.com",
+    role: "Admin",
+    status: "Active",
+    joined: "2023-12-01",
+  },
+];
+
+const revenueData = [
+  { month: "Jan", revenue: 4000 },
+  { month: "Feb", revenue: 3000 },
+  { month: "Mar", revenue: 5000 },
+  { month: "Apr", revenue: 4500 },
+  { month: "May", revenue: 6000 },
+  { month: "Jun", revenue: 5500 },
+];
+
+const categoryData = [
+  { name: "Electronics", value: 45 },
+  { name: "Clothing", value: 120 },
+  { name: "Books", value: 89 },
+];
+
+const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"];
+
+function AdminDashboard() {
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // State for all data
+  const [categories, setCategories] = useState(initialCategories);
+  const [subcategories, setSubcategories] = useState(initialSubcategories);
+  const [products, setProducts] = useState(initialProducts);
+  const [orders, setOrders] = useState(initialOrders);
+  const [users, setUsers] = useState(initialUsers);
+
+  // Modal states
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [editingItem, setEditingItem] = useState(null);
+  const [formData, setFormData] = useState({});
+
+  const stats = [
+    {
+      title: "Total Users",
+      value: users.length,
+      icon: Users,
+      color: "bg-blue-500",
+    },
+    {
+      title: "Total Orders",
+      value: orders.length,
+      icon: ShoppingCart,
+      color: "bg-green-500",
+    },
+    {
+      title: "Total Products",
+      value: products.length,
+      icon: Package,
+      color: "bg-yellow-500",
+    },
+    {
+      title: "Total Revenue",
+      value: "$" + orders.reduce((sum, o) => sum + o.amount, 0),
+      icon: DollarSign,
+      color: "bg-purple-500",
+    },
+  ];
+
+  // CRUD Functions
+  const handleCreate = (type) => {
+    setModalType(type);
+    setEditingItem(null);
+    setFormData({});
+    setShowModal(true);
+  };
+
+  const handleEdit = (type, item) => {
+    setModalType(type);
+    setEditingItem(item);
+    setFormData(item);
+    setShowModal(true);
+  };
+
+  const handleDelete = (type, id) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      switch (type) {
+        case "category":
+          setCategories(categories.filter((c) => c.id !== id));
+          break;
+        case "subcategory":
+          setSubcategories(subcategories.filter((s) => s.id !== id));
+          break;
+        case "product":
+          setProducts(products.filter((p) => p.id !== id));
+          break;
+        case "order":
+          setOrders(orders.filter((o) => o.id !== id));
+          break;
+        case "user":
+          setUsers(users.filter((u) => u.id !== id));
+          break;
+      }
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    switch (modalType) {
+      case "category":
+        if (editingItem) {
+          setCategories(
+            categories.map((c) =>
+              c.id === editingItem.id ? { ...formData, id: editingItem.id } : c
+            )
+          );
+        } else {
+          setCategories([
+            ...categories,
+            { ...formData, id: Date.now(), productCount: 0 },
+          ]);
+        }
+        break;
+      case "subcategory":
+        if (editingItem) {
+          setSubcategories(
+            subcategories.map((s) =>
+              s.id === editingItem.id ? { ...formData, id: editingItem.id } : s
+            )
+          );
+        } else {
+          const category = categories.find(
+            (c) => c.id === parseInt(formData.categoryId)
+          );
+          setSubcategories([
+            ...subcategories,
+            {
+              ...formData,
+              id: Date.now(),
+              categoryId: parseInt(formData.categoryId),
+              categoryName: category?.name,
+            },
+          ]);
+        }
+        break;
+      case "product":
+        if (editingItem) {
+          setProducts(
+            products.map((p) =>
+              p.id === editingItem.id ? { ...formData, id: editingItem.id } : p
+            )
+          );
+        } else {
+          setProducts([
+            ...products,
+            { ...formData, id: Date.now(), status: "Active" },
+          ]);
+        }
+        break;
+      case "order":
+        if (editingItem) {
+          setOrders(
+            orders.map((o) =>
+              o.id === editingItem.id ? { ...formData, id: editingItem.id } : o
+            )
+          );
+        } else {
+          setOrders([
+            ...orders,
+            {
+              ...formData,
+              id: Date.now(),
+              date: new Date().toISOString().split("T")[0],
+            },
+          ]);
+        }
+        break;
+      case "user":
+        if (editingItem) {
+          setUsers(
+            users.map((u) =>
+              u.id === editingItem.id ? { ...formData, id: editingItem.id } : u
+            )
+          );
+        } else {
+          setUsers([
+            ...users,
+            {
+              ...formData,
+              id: Date.now(),
+              joined: new Date().toISOString().split("T")[0],
+            },
+          ]);
+        }
+        break;
+    }
+
+    setShowModal(false);
+    setFormData({});
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "dashboard":
+        return (
+          <Dashboard
+            stats={stats}
+            products={products}
+            orders={orders}
+            revenueData={revenueData}
+            categoryData={categoryData}
+            COLORS={COLORS}
+          />
+        );
+      case "categories":
+        return (
+          <CustomTable
+            type="category"
+            data={categories}
+            columns={[
+              { key: "name", label: "Name" },
+              { key: "description", label: "Description" },
+              { key: "productCount", label: "Products" },
+            ]}
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        );
+      case "subcategories":
+        return (
+          <CustomTable
+            type="subcategory"
+            data={subcategories}
+            columns={[
+              { key: "name", label: "Name" },
+              { key: "categoryName", label: "Category" },
+            ]}
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        );
+      case "products":
+        return (
+          <CustomTable
+            type="product"
+            data={products}
+            columns={[
+              { key: "name", label: "Name" },
+              { key: "category", label: "Category" },
+              { key: "subcategory", label: "Subcategory" },
+              { key: "price", label: "Price" },
+              { key: "stock", label: "Stock" },
+            ]}
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        );
+      case "orders":
+        return (
+          <CustomTable
+            type="order"
+            data={orders}
+            columns={[
+              { key: "id", label: "Order ID" },
+              { key: "customer", label: "Customer" },
+              { key: "product", label: "Product" },
+              { key: "amount", label: "Amount" },
+              { key: "status", label: "Status" },
+              { key: "date", label: "Date" },
+            ]}
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        );
+      case "users":
+        return (
+          <CustomTable
+            type="user"
+            data={orders}
+            columns={[
+              { key: "name", label: "Name" },
+              { key: "email", label: "Email" },
+              { key: "role", label: "Role" },
+              { key: "status", label: "Status" },
+              { key: "joined", label: "Joined" },
+            ]}
+            handleCreate={handleCreate}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        );
+      default:
+        return (
+          <Dashboard
+            stats={stats}
+            products={products}
+            orders={orders}
+            revenueData={revenueData}
+            categoryData={categoryData}
+            COLORS={COLORS}
+          />
+        );
+    }
+  };
+
+  const menuItems = [
+    { id: "dashboard", label: "Dashboard", icon: BarChart },
+    { id: "categories", label: "Categories", icon: Package },
+    { id: "subcategories", label: "Subcategories", icon: Package },
+    { id: "products", label: "Products", icon: ShoppingCart },
+    { id: "orders", label: "Orders", icon: ShoppingCart },
+    { id: "users", label: "Users", icon: Users },
+  ];
+
+  return (
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <AdminSidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        menuItems={menuItems}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        <div className="p-8">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-800 capitalize">
+              {activeTab}
+            </h1>
+            <p className="text-gray-600 mt-1">Manage your {activeTab} here</p>
+          </div>
+          {renderContent()}
+        </div>
+      </div>
+
+      {/* Modal */}
+      <CustomModal
+        formData={formData}
+        setFormData={setFormData}
+        modalType={modalType}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        categories={categories}
+        editingItem={editingItem}
+        handleSubmit={handleSubmit}
+      />
+    </div>
+  );
+}
+
+export default AdminDashboard;
