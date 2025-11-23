@@ -2,11 +2,83 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-6">
-      <div className="container mx-auto px-4 text-center">
-        <p className="text-sm">
-          © {new Date().getFullYear()} Mocco Mart. All Rights Reserved.
-        </p>
+    <footer className="bg-black text-white mt-10 pt-10 pb-6">
+      <div className="max-w-7xl mx-auto px-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div>
+            <h3 className="text-2xl font-bold">Mocco Mart.</h3>
+            <p className="text-gray-400 mt-4">Subscribe</p>
+            <p className="text-gray-400 text-sm mb-4">
+              Get 10% off your first order
+            </p>
+
+            <div className="flex">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full px-3 py-2 bg-gray-900 text-sm outline-none placeholder-gray-500 rounded-l"
+              />
+              <button className="bg-red-600 px-4 py-2 rounded-r hover:bg-red-700 transition">
+                Subscribe
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <h5 className="text-lg font-semibold mb-4">Account</h5>
+            <ul className="space-y-2 text-gray-400 text-sm">
+              <li>My Account</li>
+              <li>Login / Register</li>
+              <li>Cart</li>
+              <li>Wishlist</li>
+              <li>Shop</li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 className="text-lg font-semibold mb-4">Quick Links</h5>
+            <ul className="space-y-2 text-gray-400 text-sm">
+              <li>Privacy Policy</li>
+              <li>Terms of Use</li>
+              <li>FAQ</li>
+              <li>Contact</li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 className="text-lg font-semibold mb-4">Download App</h5>
+            <p className="text-gray-400 text-sm mb-4">
+              Save $3 with App for new users
+            </p>
+
+            {/* <div className="flex gap-4 items-start">
+              <img
+                src="QR.jpg"
+                alt="QR Code"
+                className="w-20 h-20 object-cover rounded"
+              />
+
+              <div className="flex flex-col gap-2">
+                <img src="googlePlay.png" alt="Google Play" className="w-28" />
+                <img src="googlePlay.png" alt="App Store" className="w-28" />
+              </div>
+            </div> */}
+
+            {/* Social Icons */}
+            <div className="flex gap-4 mt-5 text-xl text-gray-300">
+              <i className="bi bi-facebook hover:text-white cursor-pointer"></i>
+              <i className="bi bi-instagram hover:text-white cursor-pointer"></i>
+              <i className="bi bi-twitter hover:text-white cursor-pointer"></i>
+              <i className="bi bi-youtube hover:text-white cursor-pointer"></i>
+            </div>
+          </div>
+        </div>
+
+        <div className="container mx-auto px-4 text-center">
+          <p className="ext-center text-gray-500 mt-10 pt-5 border-t border-gray-700 text-sm">
+            © {new Date().getFullYear()} Mocco Mart. All Rights Reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );
