@@ -29,7 +29,7 @@ const SignUp = () => {
             {/* FORM */}
             <form className="flex flex-col gap-5 text-black">
               <CustomFormInput
-                type={"name"}
+                type={"text"}
                 placeholder={"Name"}
                 name="name"
                 icon={false}
