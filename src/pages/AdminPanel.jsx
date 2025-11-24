@@ -363,6 +363,7 @@ function AdminPanel() {
             stats={stats}
             products={products}
             orders={orders}
+            users={users}
             categories={categories}
             revenueData={revenueData}
             categoryData={categoryData}

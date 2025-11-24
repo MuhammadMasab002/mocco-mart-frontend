@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import FormFields from "./FormFields";
 
 const CustomModal = ({
@@ -26,7 +27,7 @@ const CustomModal = ({
             <X size={24} />
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 text-black">
           <FormFields
             formData={formData}
             setFormData={setFormData}

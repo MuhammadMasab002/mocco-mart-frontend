@@ -4,8 +4,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SearchIcon from "@mui/icons-material/Search";
+import { Menu } from "lucide-react";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -13,6 +15,14 @@ const Header = () => {
   return (
     <header className="w-full sticky top-0 bg-white shadow-md py-4 px-8 z-[9999]">
       <div className="container mx-auto px-4 flex justify-between items-center">
+        <div>
+          <button
+            className="md:hidden fixed top-20 left-0 z-[9999] bg-gray-900 text-white p-2 rounde"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <Menu size={24} />
+          </button>
+        </div>
         <h1 className="text-xl font-bold text-gray-800">
           <a href="/" className="hover:text-blue-600">
             Mocco Mart

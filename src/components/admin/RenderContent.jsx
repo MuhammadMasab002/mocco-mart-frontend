@@ -6,6 +6,7 @@ const RenderContent = ({
   stats,
   products,
   orders,
+  users,
   categories,
   revenueData,
   categoryData,
@@ -95,7 +96,7 @@ const RenderContent = ({
       return (
         <CustomTable
           type="user"
-          data={orders}
+          data={users}
           columns={[
             { key: "name", label: "Name" },
             { key: "email", label: "Email" },
