@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Menu } from "lucide-react";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -44,10 +44,10 @@ const Header = () => {
           <a href="/" className="hover:text-blue-600">
             Home
           </a>
-          <a href="/contact-us" className="hover:text-blue-600">
+          <a href="/contact" className="hover:text-blue-600">
             Contact us
           </a>
-          <a href="/about-us" className="hover:text-blue-600">
+          <a href="/about" className="hover:text-blue-600">
             About us
           </a>
           <a href="/signup" className="hover:text-blue-600">
