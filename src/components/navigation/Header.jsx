@@ -13,22 +13,30 @@ const Header = () => {
     setSearch(e.target.value);
   };
   return (
-    <header className="w-full sticky top-0 bg-white shadow-md py-4 px-8 z-[9999]">
+    <header className="w-full sticky top-0 bg-white shadow-md py-4 sm:px-8 z-[9999]">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <div>
+        {/* <div>
           <button
             className="md:hidden fixed top-20 left-0 z-[9999] bg-gray-900 text-white p-2 rounde"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <Menu size={24} />
           </button>
-        </div>
+        </div> */}
         <h1 className="text-xl font-bold text-gray-800">
-          <a href="/" className="hover:text-blue-600">
-            Mocco Mart
-            <span className="text-xl font-bold text-red-400 rounded-2xl">
-              .
-            </span>
+          <a href="/" className="w-10 h-10 hover:text-blue-600">
+            <img
+              className="w-fullmax- w-48"
+              src="../mocco-large-logo.png"
+              alt=""
+            />
+            {/* <img
+              className="w-fullmax- w-16"
+              src="../mocco-small-logo.png"
+              alt=""
+            /> */}
+            {/* Mocco Mart */}
+            {/* <span className="text-xl font-bold text-red-400 rounded-2xl">.</span> */}
           </a>
         </h1>
 
