@@ -12,6 +12,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminPanel from "./pages/AdminPanel";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
 
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+
+          {/* Catch-all route for 404 */}
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Admin Pages */}
@@ -40,7 +44,7 @@ function App() {
             <AdminLayout>
               <AdminPanel />
             </AdminLayout>
-              // </AdminRoute>
+            // </AdminRoute>
           }
         />
       </Routes>
