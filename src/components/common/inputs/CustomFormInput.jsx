@@ -5,6 +5,7 @@ const CustomFormInput = ({
   label,
   type = "text",
   placeholder = "",
+  name,
   value,
   onChange,
   required = false,
@@ -38,6 +39,7 @@ const CustomFormInput = ({
         <input
           type={type}
           placeholder={placeholder}
+          name={name}
           value={value}
           onChange={onChange}
           required={required}

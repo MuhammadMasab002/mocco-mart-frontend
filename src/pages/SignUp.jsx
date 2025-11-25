@@ -1,8 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../components/common/CustomButton";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
+import { useRegisterUserMutation } from "../services/api";
 
 const SignUp = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [triggerRegisterUser] = useRegisterUserMutation();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData) return;
+    try {
+      await triggerRegisterUser({
+        username: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }).unwrap();
+      console.log("Form submitted:", formData);
+    } catch (err) {
+      console.error("Registration failed:", err);
+    }
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
+  };
   return (
     <>
       <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
@@ -27,14 +65,17 @@ const SignUp = () => {
               Enter your details below
             </p>
             {/* FORM */}
-            <form className="flex flex-col gap-5 text-black">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-5 text-black"
+            >
               <CustomFormInput
                 type={"text"}
                 placeholder={"Name"}
                 name="name"
                 icon={false}
-                //   value={name}
-                //   onChange={handleChange}
+                value={formData.name}
+                onChange={handleChange}
                 required
               />
               <CustomFormInput
@@ -42,8 +83,8 @@ const SignUp = () => {
                 placeholder={"Email or Phone Number"}
                 name="email"
                 icon={false}
-                //   value={email}
-                //   onChange={handleChange}
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
               <CustomFormInput
@@ -51,8 +92,8 @@ const SignUp = () => {
                 placeholder="Password"
                 name="password"
                 icon={false}
-                //   value={password}
-                //   onChange={handleChange}
+                value={formData.password}
+                onChange={handleChange}
                 required
               />
 
@@ -60,7 +101,6 @@ const SignUp = () => {
                 buttonText={"Login"}
                 type="submit"
                 variant={"danger"}
-                onClick={() => alert("signUp successfully")}
               />
               <CustomButton
                 buttonText={"Login with Google"}
@@ -68,7 +108,7 @@ const SignUp = () => {
                 variant={"secondary"}
                 onClick={() => alert("login with google successfully")}
               />
-               <div className="flex justify-center items-center gap-2 mt-4">
+              <div className="flex justify-center items-center gap-2 mt-4">
                 <p className="text-center text-gray-600">
                   Already have an account?
                 </p>

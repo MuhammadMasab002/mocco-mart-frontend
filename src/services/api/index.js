@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const MoccoMartApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl:  "http://localhost:8000/api", // baseUrl: http://localhost:8000/api / products
+    baseUrl: "http://localhost:8000/api", // baseUrl: http://localhost:8000/api / products
     credentials: "include", // if using cookies
   }),
   endpoints: (builder) => ({
@@ -18,8 +18,19 @@ export const MoccoMartApi = createApi({
         body: productData,
       }),
     }),
+    registerUser: builder.mutation({
+      query: (data) => ({
+        url: "/auth/user/register",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
   // endpoints: EndPointMethods,
 });
 
-export const { useGetProductsQuery, usePostProductsMutation } = MoccoMartApi;
+export const {
+  useGetProductsQuery,
+  usePostProductsMutation,
+  useRegisterUserMutation,
+} = MoccoMartApi;
