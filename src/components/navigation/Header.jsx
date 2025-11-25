@@ -5,6 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SearchIcon from "@mui/icons-material/Search";
 import { Menu } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   // const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,7 @@ const Header = () => {
           </button>
         </div> */}
         <h1 className="text-xl font-bold text-gray-800">
-          <a href="/" className="w-10 h-10 hover:text-blue-600">
+          <Link to="/" className="w-10 h-10 hover:text-blue-600">
             <img
               className="w-fullmax- w-48"
               src="../mocco-large-logo.png"
@@ -37,22 +38,22 @@ const Header = () => {
             /> */}
             {/* Mocco Mart */}
             {/* <span className="text-xl font-bold text-red-400 rounded-2xl">.</span> */}
-          </a>
+          </Link>
         </h1>
 
         <nav className="space-x-6 text-gray-700 font-medium hidden lg:block">
-          <a href="/" className="hover:text-blue-600">
+          <NavLink to="/" end className="hover:text-blue-600">
             Home
-          </a>
-          <a href="/contact" className="hover:text-blue-600">
-            Contact us
-          </a>
-          <a href="/about" className="hover:text-blue-600">
-            About us
-          </a>
-          <a href="/signup" className="hover:text-blue-600">
-            Sign Up
-          </a>
+          </NavLink>
+          <Link to="/contact" className="hover:text-blue-600">
+            Contact
+          </Link>
+          <Link to="/about" className="hover:text-blue-600">
+            About
+          </Link>
+          <Link to="/signup" className="hover:text-blue-600">
+            SignUp
+          </Link>
         </nav>
         <div className="flex justify-between items-center text-black">
           <div className="hidden md:block">
@@ -67,18 +68,24 @@ const Header = () => {
           </div>
           <SearchIcon className="text-gray-500 text-xl md:invisible" />
           <div className="flex justify-between items-center gap-3 pl-4">
-            <FavoriteBorderIcon
-              className="rounded-full bg-gray-100 hover:text-red-600 cursor-pointer p-1"
-              fontSize="large"
-            />
-            <ShoppingCartIcon
-              className="rounded-full bg-gray-100 hover:text-red-600 cursor-pointer p-1"
-              fontSize="large"
-            />
-            <PersonOutlineIcon
-              className="rounded-full bg-red-100 text-red-600 cursor-pointer p-1"
-              fontSize="large"
-            />
+            <Link to="/wishlist">
+              <FavoriteBorderIcon
+                className="rounded-full bg-gray-100 hover:text-red-600 cursor-pointer p-1"
+                fontSize="large"
+              />
+            </Link>
+            <Link to="/cart">
+              <ShoppingCartIcon
+                className="rounded-full bg-gray-100 hover:text-red-600 cursor-pointer p-1"
+                fontSize="large"
+              />
+            </Link>
+            <Link to="/my-profile">
+              <PersonOutlineIcon
+                className="rounded-full bg-red-100 text-red-600 cursor-pointer p-1"
+                fontSize="large"
+              />
+            </Link>
           </div>
         </div>
       </div>

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import CustomButton from "../components/common/CustomButton";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
 import { useRegisterUserMutation } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,6 +38,7 @@ const SignUp = () => {
         email: "",
         password: "",
       });
+      navigate("/login");
     } catch (err) {
       console.error("Registration failed:", err);
     }
@@ -97,15 +100,15 @@ const SignUp = () => {
               />
 
               <CustomButton
-                buttonText={"Login"}
+                buttonText={"Create Account"}
                 type="submit"
                 variant={"danger"}
               />
               <CustomButton
-                buttonText={"Login with Google"}
+                buttonText={"Sign up with Google"}
                 type="submit"
                 variant={"secondary"}
-                onClick={() => alert("login with google successfully")}
+                onClick={() => alert("Sign up with google successfully")}
               />
               <div className="flex justify-center items-center gap-2 mt-4">
                 <p className="text-center text-gray-600">

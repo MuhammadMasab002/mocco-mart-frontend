@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import CustomButton from "../components/common/CustomButton";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
 import { useLoginUserMutation } from "../services/api";
+import { useNavigate } from "react-router-dom";
 const SignIn = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,6 +34,7 @@ const SignIn = () => {
         email: "",
         password: "",
       });
+      navigate("/");
     } catch (err) {
       console.error("Login failed:", err);
     }
