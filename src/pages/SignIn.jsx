@@ -27,15 +27,14 @@ const SignIn = () => {
         password: formData.password,
       }).unwrap();
       console.log("Login successfully:", formData);
+      // Reset form
+      setFormData({
+        email: "",
+        password: "",
+      });
     } catch (err) {
       console.error("Login failed:", err);
     }
-
-    // Reset form
-    // setFormData({
-    //   email: "",
-    //   password: "",
-    // });
   };
 
   return (
