@@ -1,7 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomButton from "../components/common/CustomButton";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
+import { useLoginUserMutation } from "../services/api";
 const SignIn = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [triggerLoginUser] = useLoginUserMutation();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData) return;
+    try {
+      await triggerLoginUser({
+        email: formData.email,
+        password: formData.password,
+      }).unwrap();
+      console.log("Login successfully:", formData);
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+
+    // Reset form
+    // setFormData({
+    //   email: "",
+    //   password: "",
+    // });
+  };
+
   return (
     <>
       <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
@@ -26,14 +62,17 @@ const SignIn = () => {
             </p>
 
             {/* FORM */}
-            <form className="flex flex-col gap-5 text-black">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-5 text-black"
+            >
               <CustomFormInput
                 type={"email"}
                 placeholder={"Email or Phone Number"}
                 name="email"
                 icon={false}
-                //   value={email}
-                //   onChange={handleChange}
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
               <CustomFormInput
@@ -41,8 +80,8 @@ const SignIn = () => {
                 placeholder="Password"
                 name="password"
                 icon={false}
-                //   value={password}
-                //   onChange={handleChange}
+                value={formData.password}
+                onChange={handleChange}
                 required
               />
 
@@ -50,7 +89,6 @@ const SignIn = () => {
                 buttonText={"Login"}
                 type="submit"
                 variant={"danger"}
-                onClick={() => alert("login successfully")}
               />
               <CustomButton
                 buttonText={"Forget Password?"}

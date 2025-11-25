@@ -29,17 +29,16 @@ const SignUp = () => {
         email: formData.email,
         password: formData.password,
       }).unwrap();
-      console.log("Form submitted:", formData);
+      console.log("Signup successfully:", formData);
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+      });
     } catch (err) {
       console.error("Registration failed:", err);
     }
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
   };
   return (
     <>

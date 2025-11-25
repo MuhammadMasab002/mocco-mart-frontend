@@ -25,6 +25,13 @@ export const MoccoMartApi = createApi({
         body: data,
       }),
     }),
+    loginUser: builder.mutation({
+      query: (data) => ({
+        url: "/auth/user/login",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
   // endpoints: EndPointMethods,
 });
@@ -33,4 +40,5 @@ export const {
   useGetProductsQuery,
   usePostProductsMutation,
   useRegisterUserMutation,
+  useLoginUserMutation,
 } = MoccoMartApi;
