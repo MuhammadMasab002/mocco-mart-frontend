@@ -1,20 +1,25 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const baseUrl = import.meta.env.VITE_API_URL
+// const baseUrl = import.meta.env.BACKEND_API_URL;
 
 export const MoccoMartApi = createApi({
   reducerPath: "api",
-  // baseQuery: CustomBaseQuery({
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl, // your backend base URL
+    baseUrl:  "http://localhost:8000/api", // baseUrl: http://localhost:8000/api / products
     credentials: "include", // if using cookies
-    // prepareHeaders: async (headers) => {
-    //   const token = await getToken();
-    //   if (token) {
-    //     headers.set("Authorization", `Bearer ${token}`);
-    //   }
-    //   return headers;
-    // },
   }),
-  endpoints: () => ({}),
+  endpoints: (builder) => ({
+    getProducts: builder.query({
+      query: () => "/products",
+    }),
+    postProducts: builder.mutation({
+      query: (productData) => ({
+        url: "/products",
+        method: "POST",
+        body: productData,
+      }),
+    }),
+  }),
   // endpoints: EndPointMethods,
 });
+
+export const { useGetProductsQuery, usePostProductsMutation } = MoccoMartApi;

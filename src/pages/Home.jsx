@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../components/common/products/ProductCard";
 import HeroSection from "../components/home/HeroSection";
 import FlashSales from "../components/home/FlashSales";
@@ -6,6 +6,7 @@ import BestSelling from "../components/home/BestSelling";
 import MusicExperienceBanner from "../components/home/MusicExperienceBanner";
 import FeatureSection from "../components/home/FeatureSection";
 import NewArrivalProducts from "../components/home/NewArrivalProducts";
+import { useGetProductsQuery } from "../services/api";
 
 const sampleProducts = [
   {
@@ -55,6 +56,10 @@ const sampleProducts = [
 ];
 
 function Home() {
+
+  const { data: productData } = useGetProductsQuery();
+  console.log("product data--->", productData);
+  
   return (
     <div className="w-full h-full justify-center items-center flex flex-col gap-4 my-4">
       {/* <h1 className="text-3xl font-bold text-red-500">Welcome to Mocco Mart</h1> */}
@@ -74,8 +79,7 @@ function Home() {
         <NewArrivalProducts />
       </section>
       <section className="w-full max-w-7xl py-4 sm:py-10 md:py-20">
-
-      <FeatureSection />
+        <FeatureSection />
       </section>
     </div>
   );

@@ -40,7 +40,7 @@ function App() {
             <AdminLayout>
               <AdminPanel />
             </AdminLayout>
-            //  </AdminRoute>
+              // </AdminRoute>
           }
         />
       </Routes>
