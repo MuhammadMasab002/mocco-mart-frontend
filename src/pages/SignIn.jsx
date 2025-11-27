@@ -3,7 +3,10 @@ import CustomButton from "../components/common/CustomButton";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
 import { useLoginUserMutation } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { setCredentials } from "../services/store/slices/authSlice";
+import { useDispatch } from "react-redux";
 const SignIn = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -22,18 +25,28 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData) return;
+    if (!formData.email || !formData.password) {
+      console.error("Please fill in all fields");
+      return;
+    }
     try {
-      await triggerLoginUser({
+      const user = await triggerLoginUser({
         email: formData.email,
         password: formData.password,
       }).unwrap();
+      
+
+      if (user) {
+        dispatch(setCredentials(user));
+      }
+
       console.log("Login successfully:", formData);
       // Reset form
       setFormData({
         email: "",
         password: "",
       });
+
       navigate("/");
     } catch (err) {
       console.error("Login failed:", err);

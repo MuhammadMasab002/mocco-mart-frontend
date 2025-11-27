@@ -11,7 +11,7 @@ const getTimeParts = (sec) => {
   return { days, hours, minutes, seconds };
 };
 
-const FlashSales = ({ sampleProducts }) => {
+const FlashSales = ({ sampleProducts, handleFetchCategories }) => {
   // countdown duration: 3 days + 5 hours (in seconds)
   const DURATION = 3 * 24 * 3600 + 5 * 3600;
   const [remaining, setRemaining] = useState(DURATION);
@@ -65,6 +65,7 @@ const FlashSales = ({ sampleProducts }) => {
             buttonText={"View all"}
             variant={"textDanger"}
             className="hidden md:block"
+            onClick={handleFetchCategories}
           />
         </div>
       </div>

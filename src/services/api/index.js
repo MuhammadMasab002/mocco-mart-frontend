@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { CustomBaseQuery } from "./CustomBaseQuery.js";
 // const baseUrl = import.meta.env.BACKEND_API_URL;
 
 export const MoccoMartApi = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api", // baseUrl: http://localhost:8000/api / products
-    credentials: "include", // if using cookies
-  }),
+  baseQuery: CustomBaseQuery,
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => "/products",
@@ -18,6 +16,12 @@ export const MoccoMartApi = createApi({
         body: productData,
       }),
     }),
+
+    getCategories: builder.query({
+      query: () => "/categories",
+    }),
+
+    // auth api endpoints
     registerUser: builder.mutation({
       query: (data) => ({
         url: "/auth/user/register",
@@ -39,6 +43,9 @@ export const MoccoMartApi = createApi({
 export const {
   useGetProductsQuery,
   usePostProductsMutation,
+  useLazyGetCategoriesQuery,
+
+  // auth api hooks
   useRegisterUserMutation,
   useLoginUserMutation,
 } = MoccoMartApi;

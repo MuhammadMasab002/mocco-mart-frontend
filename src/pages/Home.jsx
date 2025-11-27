@@ -6,7 +6,11 @@ import BestSelling from "../components/home/BestSelling";
 import MusicExperienceBanner from "../components/home/MusicExperienceBanner";
 import FeatureSection from "../components/home/FeatureSection";
 import NewArrivalProducts from "../components/home/NewArrivalProducts";
-import { useGetProductsQuery } from "../services/api";
+import {
+  useGetProductsQuery,
+  useLazyGetCategoriesQuery,
+} from "../services/api";
+import { useSelector } from "react-redux";
 
 const sampleProducts = [
   {
@@ -56,16 +60,40 @@ const sampleProducts = [
 ];
 
 function Home() {
-
   const { data: productData } = useGetProductsQuery();
   console.log("product data--->", productData);
-  
+
+  const user = useSelector((state) => state.auth.user);
+  console.log("user from store: --> ", user);
+
+  const [triggerFetchCategories
+    // , { data, error }
+  ] = useLazyGetCategoriesQuery();
+
+  const handleFetchCategories = async () => {
+    try {
+      const result = await triggerFetchCategories().unwrap();
+      console.log("Categories data--->", result);
+    } catch (err) {
+      console.error("Categories error--->", err);
+
+      // Handle session expiration
+      if (err.status === 401) {
+        console.log("Session expired, user will be logged out");
+        // User will be automatically logged out by CustomBaseQuery
+      }
+    }
+  };
+
   return (
     <div className="w-full h-full justify-center items-center flex flex-col gap-4 my-4">
       {/* <h1 className="text-3xl font-bold text-red-500">Welcome to Mocco Mart</h1> */}
       <HeroSection />
       <section className="w-full max-w-7xl px-5 py-8 space-y-8 sm:space-y-12">
-        <FlashSales sampleProducts={sampleProducts} />
+        <FlashSales
+          sampleProducts={sampleProducts}
+          handleFetchCategories={handleFetchCategories}
+        />
         <BestSelling sampleProducts={sampleProducts} />
       </section>
       <section className="w-full max-w-7xl my-10 bg-black text-white rounded-lg overflow-hidden">
