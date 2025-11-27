@@ -4,9 +4,7 @@ import { logout, setCredentials } from "../store/slices/authSlice";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:8000/api", // baseUrl: http://localhost:8000/api / products
   credentials: "include", // if using cookies
-  prepareHeaders: (headers) => {
-    return headers;
-  },
+  prepareHeaders: (headers) => headers,
 });
 
 export const CustomBaseQuery = async (args, api, extraOptions) => {

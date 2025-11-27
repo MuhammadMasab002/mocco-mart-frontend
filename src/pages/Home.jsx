@@ -66,7 +66,8 @@ function Home() {
   const user = useSelector((state) => state.auth.user);
   console.log("user from store: --> ", user);
 
-  const [triggerFetchCategories
+  const [
+    triggerFetchCategories,
     // , { data, error }
   ] = useLazyGetCategoriesQuery();
 
@@ -76,12 +77,6 @@ function Home() {
       console.log("Categories data--->", result);
     } catch (err) {
       console.error("Categories error--->", err);
-
-      // Handle session expiration
-      if (err.status === 401) {
-        console.log("Session expired, user will be logged out");
-        // User will be automatically logged out by CustomBaseQuery
-      }
     }
   };
 
