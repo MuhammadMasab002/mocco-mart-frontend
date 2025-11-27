@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProductCard from "../components/common/products/ProductCard";
 import HeroSection from "../components/home/HeroSection";
 import FlashSales from "../components/home/FlashSales";
@@ -10,7 +10,6 @@ import {
   useGetProductsQuery,
   useLazyGetCategoriesQuery,
 } from "../services/api";
-import { useSelector } from "react-redux";
 
 const sampleProducts = [
   {
@@ -62,9 +61,6 @@ const sampleProducts = [
 function Home() {
   const { data: productData } = useGetProductsQuery();
   console.log("product data--->", productData);
-
-  const user = useSelector((state) => state.auth.user);
-  console.log("user from store: --> ", user);
 
   const [
     triggerFetchCategories,

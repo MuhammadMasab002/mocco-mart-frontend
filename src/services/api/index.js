@@ -36,6 +36,12 @@ export const MoccoMartApi = createApi({
         body: data,
       }),
     }),
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: "/auth/user/logout",
+        method: "POST",
+      }),
+    }),
   }),
   // endpoints: EndPointMethods,
 });
@@ -48,4 +54,5 @@ export const {
   // auth api hooks
   useRegisterUserMutation,
   useLoginUserMutation,
+  useLogoutUserMutation
 } = MoccoMartApi;

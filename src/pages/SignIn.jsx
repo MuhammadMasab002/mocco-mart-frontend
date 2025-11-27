@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../components/common/CustomButton";
 import CustomFormInput from "../components/common/inputs/CustomFormInput";
 import { useLoginUserMutation } from "../services/api";
@@ -34,13 +34,11 @@ const SignIn = () => {
         email: formData.email,
         password: formData.password,
       }).unwrap();
-      
 
       if (user) {
-        dispatch(setCredentials(user));
+        localStorage.setItem("isLoggedInUser", JSON.stringify(true));
       }
 
-      console.log("Login successfully:", formData);
       // Reset form
       setFormData({
         email: "",
