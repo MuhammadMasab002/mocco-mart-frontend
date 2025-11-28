@@ -1,10 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { CustomBaseQuery } from "./CustomBaseQuery.js";
+import { data } from "autoprefixer";
 // const baseUrl = import.meta.env.BACKEND_API_URL;
 
 export const MoccoMartApi = createApi({
   reducerPath: "api",
   baseQuery: CustomBaseQuery,
+  tagTypes: ["Category"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => "/products",
@@ -20,9 +22,19 @@ export const MoccoMartApi = createApi({
     getSubCategories: builder.query({
       query: () => "/sub-categories",
     }),
-    
+
     getCategories: builder.query({
       query: () => "/categories",
+      providesTags: ["Category"],
+    }),
+
+    createCategory: builder.mutation({
+      query: (data) => ({
+        url: "/categories",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Category"],
     }),
 
     // auth api endpoints
@@ -53,13 +65,15 @@ export const MoccoMartApi = createApi({
 export const {
   useGetProductsQuery,
   usePostProductsMutation,
+
   useGetCategoriesQuery,
   useLazyGetCategoriesQuery,
+  useCreateCategoryMutation,
 
   useGetSubCategoriesQuery,
 
   // auth api hooks
   useRegisterUserMutation,
   useLoginUserMutation,
-  useLogoutUserMutation
+  useLogoutUserMutation,
 } = MoccoMartApi;

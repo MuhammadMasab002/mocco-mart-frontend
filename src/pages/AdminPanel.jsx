@@ -16,6 +16,7 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
   useGetSubCategoriesQuery,
+  useCreateCategoryMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -169,9 +170,16 @@ function AdminPanel() {
     useGetProductsQuery();
   console.log("allProducts: ", allProducts);
 
+  // mutations
+  const [triggerCreateCategory] = useCreateCategoryMutation();
+
   // State for all data
-  const [categories, setCategories] = useState(initialCategories);
-  const [subcategories, setSubcategories] = useState(initialSubcategories);
+  const [categories, setCategories] = useState(
+    allCategories ?? initialCategories
+  );
+  const [subcategories, setSubcategories] = useState(
+    allSubCategories ?? initialSubcategories
+  );
   const [products, setProducts] = useState(
     allProducts?.products ?? initialProducts
   );
@@ -248,7 +256,7 @@ function AdminPanel() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     switch (modalType) {
@@ -260,10 +268,7 @@ function AdminPanel() {
             )
           );
         } else {
-          setCategories([
-            ...categories,
-            { ...formData, id: Date.now(), productCount: 0 },
-          ]);
+          await triggerCreateCategory(formData).unwrap();
         }
         break;
       case "subcategory":
