@@ -6,17 +6,19 @@ import { data } from "autoprefixer";
 export const MoccoMartApi = createApi({
   reducerPath: "api",
   baseQuery: CustomBaseQuery,
-  tagTypes: ["Category", "SubCategory"],
+  tagTypes: ["Category", "SubCategory", "Product"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => "/products",
+      providesTags: ["Product"],
     }),
-    postProducts: builder.mutation({
+    createProduct: builder.mutation({
       query: (productData) => ({
         url: "/products",
         method: "POST",
         body: productData,
       }),
+      invalidatesTags: ["Product"],
     }),
 
     getSubCategories: builder.query({
@@ -74,7 +76,7 @@ export const MoccoMartApi = createApi({
 
 export const {
   useGetProductsQuery,
-  usePostProductsMutation,
+  useCreateProductMutation,
 
   useGetSubCategoriesQuery,
   useCreateSubCategoryMutation,
@@ -82,7 +84,6 @@ export const {
   useGetCategoriesQuery,
   useLazyGetCategoriesQuery,
   useCreateCategoryMutation,
-
 
   // auth api hooks
   useRegisterUserMutation,

@@ -108,8 +108,8 @@ const FormFields = ({
                 required
               >
                 <option value="">Select Category</option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
+                {categories?.map((cat) => (
+                  <option key={cat?._id} value={cat?._id}>
                     {cat.name}
                   </option>
                 ))}
@@ -120,16 +120,16 @@ const FormFields = ({
                 Sub Category
               </label>
               <select
-                value={formData.categoryId || ""}
+                value={formData.subCategoryId || ""}
                 onChange={(e) =>
-                  setFormData({ ...formData, categoryId: e.target.value })
+                  setFormData({ ...formData, subCategoryId: e.target.value })
                 }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               >
                 <option value="">Select Sub Category</option>
-                {subCategories.map((subCat) => (
-                  <option key={subCat.id} value={subCat.id}>
+                {subCategories?.map((subCat) => (
+                  <option key={subCat?._id} value={subCat?._id}>
                     {subCat.name}
                   </option>
                 ))}

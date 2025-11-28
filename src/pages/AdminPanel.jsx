@@ -13,9 +13,10 @@ import CustomModal from "../components/admin/CustomModal";
 import AdminSidebar from "../components/admin/AdminSidebar";
 import RenderContent from "../components/admin/RenderContent";
 import {
-  useGetCategoriesQuery,
   useGetProductsQuery,
   useGetSubCategoriesQuery,
+  useGetCategoriesQuery,
+  useCreateProductMutation,
   useCreateSubCategoryMutation,
   useCreateCategoryMutation,
 } from "../services/api";
@@ -172,6 +173,7 @@ function AdminPanel() {
   console.log("allProducts: ", allProducts);
 
   // mutations
+  const [triggerCreateProduct] = useCreateProductMutation();
   const [triggerCreateSubCategory] = useCreateSubCategoryMutation();
   const [triggerCreateCategory] = useCreateCategoryMutation();
 
@@ -292,10 +294,7 @@ function AdminPanel() {
             )
           );
         } else {
-          setProducts([
-            ...products,
-            { ...formData, id: Date.now(), status: "Active" },
-          ]);
+          await triggerCreateProduct(formData).unwrap();
         }
         break;
       case "order":
