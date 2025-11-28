@@ -17,6 +17,10 @@ export const MoccoMartApi = createApi({
       }),
     }),
 
+    getSubCategories: builder.query({
+      query: () => "/sub-categories",
+    }),
+    
     getCategories: builder.query({
       query: () => "/categories",
     }),
@@ -49,7 +53,10 @@ export const MoccoMartApi = createApi({
 export const {
   useGetProductsQuery,
   usePostProductsMutation,
+  useGetCategoriesQuery,
   useLazyGetCategoriesQuery,
+
+  useGetSubCategoriesQuery,
 
   // auth api hooks
   useRegisterUserMutation,

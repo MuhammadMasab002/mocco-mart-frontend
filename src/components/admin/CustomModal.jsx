@@ -8,6 +8,7 @@ const CustomModal = ({
   showModal,
   setShowModal,
   categories,
+  subCategories,
   editingItem,
   handleSubmit,
 }) => {
@@ -17,7 +18,7 @@ const CustomModal = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold capitalize">
+          <h3 className="text-xl font-semibold capitalize text-black">
             {editingItem ? "Edit" : "Add"} {modalType}
           </h3>
           <button
@@ -33,6 +34,7 @@ const CustomModal = ({
             setFormData={setFormData}
             modalType={modalType}
             categories={categories}
+            subCategories={subCategories}
           />
           <div className="flex gap-4 mt-6">
             <button

@@ -12,6 +12,11 @@ import {
 import CustomModal from "../components/admin/CustomModal";
 import AdminSidebar from "../components/admin/AdminSidebar";
 import RenderContent from "../components/admin/RenderContent";
+import {
+  useGetCategoriesQuery,
+  useGetProductsQuery,
+  useGetSubCategoriesQuery,
+} from "../services/api";
 
 // Initial Mock Data
 const initialCategories = [
@@ -156,10 +161,20 @@ function AdminPanel() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  const { data: allCategories, isLoading: isCategoriesLoading } =
+    useGetCategoriesQuery();
+  const { data: allSubCategories, isLoading: isSubCategoriesLoading } =
+    useGetSubCategoriesQuery();
+  const { data: allProducts, isLoading: isProductsLoading } =
+    useGetProductsQuery();
+  console.log("allProducts: ", allProducts);
+
   // State for all data
   const [categories, setCategories] = useState(initialCategories);
   const [subcategories, setSubcategories] = useState(initialSubcategories);
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState(
+    allProducts?.products ?? initialProducts
+  );
   const [orders, setOrders] = useState(initialOrders);
   const [users, setUsers] = useState(initialUsers);
 
@@ -184,7 +199,7 @@ function AdminPanel() {
     },
     {
       title: "Total Products",
-      value: products.length,
+      value: products?.length,
       icon: Package,
       color: "bg-yellow-500",
     },
@@ -361,17 +376,17 @@ function AdminPanel() {
           <RenderContent
             activeTab={activeTab}
             stats={stats}
-            products={products}
+            products={allProducts?.products}
             orders={orders}
             users={users}
-            categories={categories}
+            categories={allCategories?.categories}
             revenueData={revenueData}
             categoryData={categoryData}
             COLORS={COLORS}
             handleCreate={handleCreate}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
-            subcategories={subcategories}
+            subcategories={allSubCategories?.subCategories}
           />
         </div>
       </div>
@@ -383,7 +398,8 @@ function AdminPanel() {
         modalType={modalType}
         showModal={showModal}
         setShowModal={setShowModal}
-        categories={categories}
+        categories={allCategories?.categories}
+        subCategories={allSubCategories?.subCategories}
         editingItem={editingItem}
         handleSubmit={handleSubmit}
       />

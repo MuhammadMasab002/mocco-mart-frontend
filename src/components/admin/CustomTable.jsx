@@ -39,14 +39,18 @@ const CustomTable = ({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((item) => (
+            {data?.map((item) => (
               <tr key={item.id}>
-                {columns.map((col) => (
+                {columns?.map((col) => (
                   <td
                     key={col.key}
                     className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
                   >
-                    {item[col.key]}
+                    {col.key === "categoryId" || col.key === "subCategoryId"
+                      ? item[col.key]?.name
+                      : col.key === "products"
+                      ? item[col.key]?.length
+                      : item[col.key]}
                   </td>
                 ))}
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">

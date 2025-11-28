@@ -150,11 +150,11 @@ const AdminDashboard = ({
               </thead>
               <tbody>
                 {products
-                  .filter((p) => p.stock < 10)
-                  .map((product) => (
-                    <tr key={product.id} className="border-b">
-                      <td className="py-2 text-sm">{product.name}</td>
-                      <td className="py-2 text-sm">{product.stock}</td>
+                  ?.filter((p) => p?.stock < 15)
+                  ?.map((product) => (
+                    <tr key={product?._id} className="border-b">
+                      <td className="py-2 text-sm">{product?.name}</td>
+                      <td className="py-2 text-sm">{product?.stock}</td>
                       <td className="py-2">
                         <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-800">
                           Low Stock

@@ -36,7 +36,7 @@ const RenderContent = ({
           columns={[
             { key: "name", label: "Name" },
             { key: "description", label: "Description" },
-            { key: "productCount", label: "Products" },
+            { key: "products", label: "Products" },
           ]}
           handleCreate={handleCreate}
           handleEdit={handleEdit}
@@ -50,7 +50,7 @@ const RenderContent = ({
           data={subcategories}
           columns={[
             { key: "name", label: "Name" },
-            { key: "categoryName", label: "Category" },
+            { key: "categoryId", label: "Category" },
           ]}
           handleCreate={handleCreate}
           handleEdit={handleEdit}
@@ -64,8 +64,8 @@ const RenderContent = ({
           data={products}
           columns={[
             { key: "name", label: "Name" },
-            { key: "category", label: "Category" },
-            { key: "subcategory", label: "Subcategory" },
+            { key: "categoryId", label: "Category" },
+            { key: "subCategoryId", label: "Subcategory" },
             { key: "price", label: "Price" },
             { key: "stock", label: "Stock" },
           ]}
