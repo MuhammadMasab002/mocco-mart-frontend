@@ -16,6 +16,7 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
   useGetSubCategoriesQuery,
+  useCreateSubCategoryMutation,
   useCreateCategoryMutation,
 } from "../services/api";
 
@@ -171,6 +172,7 @@ function AdminPanel() {
   console.log("allProducts: ", allProducts);
 
   // mutations
+  const [triggerCreateSubCategory] = useCreateSubCategoryMutation();
   const [triggerCreateCategory] = useCreateCategoryMutation();
 
   // State for all data
@@ -279,18 +281,7 @@ function AdminPanel() {
             )
           );
         } else {
-          const category = categories.find(
-            (c) => c.id === parseInt(formData.categoryId)
-          );
-          setSubcategories([
-            ...subcategories,
-            {
-              ...formData,
-              id: Date.now(),
-              categoryId: parseInt(formData.categoryId),
-              categoryName: category?.name,
-            },
-          ]);
+          await triggerCreateSubCategory(formData).unwrap();
         }
         break;
       case "product":
