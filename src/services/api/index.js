@@ -12,11 +12,21 @@ export const MoccoMartApi = createApi({
       query: () => "/products",
       providesTags: ["Product"],
     }),
+
     createProduct: builder.mutation({
       query: (productData) => ({
         url: "/products",
         method: "POST",
         body: productData,
+      }),
+      invalidatesTags: ["Product"],
+    }),
+
+    updateProduct: builder.mutation({
+      query: ([productId, product]) => ({
+        url: `/products/${productId}`,
+        method: "PUT",
+        body: product,
       }),
       invalidatesTags: ["Product"],
     }),
@@ -101,6 +111,7 @@ export const MoccoMartApi = createApi({
 export const {
   useGetProductsQuery,
   useCreateProductMutation,
+  useUpdateProductMutation,
   useDeleteProductMutation,
 
   useGetSubCategoriesQuery,

@@ -60,7 +60,11 @@ const FormFields = ({
               Category
             </label>
             <select
-              value={formData.categoryId || ""}
+              value={
+                formData.categoryId?._id
+                  ? formData.categoryId?._id
+                  : formData.categoryId || ""
+              }
               onChange={(e) =>
                 setFormData({ ...formData, categoryId: e.target.value })
               }
@@ -100,7 +104,11 @@ const FormFields = ({
                 Category
               </label>
               <select
-                value={formData.categoryId || ""}
+                value={
+                  formData.categoryId?._id
+                    ? formData.categoryId?._id
+                    : formData.categoryId || ""
+                }
                 onChange={(e) =>
                   setFormData({ ...formData, categoryId: e.target.value })
                 }
@@ -120,7 +128,11 @@ const FormFields = ({
                 Sub Category
               </label>
               <select
-                value={formData.subCategoryId || ""}
+                value={
+                  formData.subCategoryId?._id
+                    ? formData.subCategoryId?._id
+                    : formData.subCategoryId || ""
+                }
                 onChange={(e) =>
                   setFormData({ ...formData, subCategoryId: e.target.value })
                 }

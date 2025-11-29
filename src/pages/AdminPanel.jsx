@@ -22,6 +22,7 @@ import {
   useDeleteProductMutation,
   useDeleteSubCategoryMutation,
   useDeleteCategoryMutation,
+  useUpdateProductMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -173,16 +174,17 @@ function AdminPanel() {
     useGetSubCategoriesQuery();
   const { data: allProducts, isLoading: isProductsLoading } =
     useGetProductsQuery();
-  console.log("allProducts: ", allProducts);
 
   // mutations
   const [triggerCreateProduct] = useCreateProductMutation();
   const [triggerCreateSubCategory] = useCreateSubCategoryMutation();
   const [triggerCreateCategory] = useCreateCategoryMutation();
 
-  const [triggerdeleteProduct] = useDeleteProductMutation();
-  const [triggerdeleteSubCategory] = useDeleteSubCategoryMutation();
-  const [triggerdeleteCategory] = useDeleteCategoryMutation();
+  const [triggerUpdateProduct] = useUpdateProductMutation();
+
+  const [triggerDeleteProduct] = useDeleteProductMutation();
+  const [triggerDeleteSubCategory] = useDeleteSubCategoryMutation();
+  const [triggerDeleteCategory] = useDeleteCategoryMutation();
 
   // State for all data
   const [categories, setCategories] = useState(
@@ -249,13 +251,13 @@ function AdminPanel() {
     if (window.confirm("Are you sure you want to delete this item?")) {
       switch (type) {
         case "category":
-          await triggerdeleteCategory(id).unwrap();
+          await triggerDeleteCategory(id).unwrap();
           break;
         case "subcategory":
-          await triggerdeleteSubCategory(id).unwrap();
+          await triggerDeleteSubCategory(id).unwrap();
           break;
         case "product":
-          await triggerdeleteProduct(id).unwrap();
+          await triggerDeleteProduct(id).unwrap();
           break;
         case "order":
           setOrders(orders.filter((o) => o.id !== id));
@@ -295,11 +297,7 @@ function AdminPanel() {
         break;
       case "product":
         if (editingItem) {
-          setProducts(
-            products.map((p) =>
-              p.id === editingItem.id ? { ...formData, id: editingItem.id } : p
-            )
-          );
+          await triggerUpdateProduct([editingItem?._id, formData]).unwrap();
         } else {
           await triggerCreateProduct(formData).unwrap();
         }
