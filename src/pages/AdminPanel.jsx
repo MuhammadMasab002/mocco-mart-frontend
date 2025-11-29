@@ -21,6 +21,7 @@ import {
   useCreateCategoryMutation,
   useDeleteProductMutation,
   useDeleteSubCategoryMutation,
+  useDeleteCategoryMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -181,6 +182,7 @@ function AdminPanel() {
 
   const [triggerdeleteProduct] = useDeleteProductMutation();
   const [triggerdeleteSubCategory] = useDeleteSubCategoryMutation();
+  const [triggerdeleteCategory] = useDeleteCategoryMutation();
 
   // State for all data
   const [categories, setCategories] = useState(
@@ -247,7 +249,7 @@ function AdminPanel() {
     if (window.confirm("Are you sure you want to delete this item?")) {
       switch (type) {
         case "category":
-          setCategories(categories.filter((c) => c.id !== id));
+          await triggerdeleteCategory(id).unwrap();
           break;
         case "subcategory":
           await triggerdeleteSubCategory(id).unwrap();
