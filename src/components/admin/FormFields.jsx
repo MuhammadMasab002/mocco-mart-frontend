@@ -5,6 +5,12 @@ const FormFields = ({
   categories,
   subCategories,
 }) => {
+  const filteredSubCategories = subCategories.filter((subCat) => {
+    return (
+      subCat.categoryId?._id ===
+        (formData.categoryId?._id ?? formData.categoryId) || ""
+    );
+  });
   switch (modalType) {
     case "category":
       return (
@@ -104,11 +110,7 @@ const FormFields = ({
                 Category
               </label>
               <select
-                value={
-                  formData.categoryId?._id
-                    ? formData.categoryId?._id
-                    : formData.categoryId || ""
-                }
+                value={(formData.categoryId?._id ?? formData.categoryId) || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, categoryId: e.target.value })
                 }
@@ -129,9 +131,7 @@ const FormFields = ({
               </label>
               <select
                 value={
-                  formData.subCategoryId?._id
-                    ? formData.subCategoryId?._id
-                    : formData.subCategoryId || ""
+                  (formData.subCategoryId?._id ?? formData.subCategoryId) || ""
                 }
                 onChange={(e) =>
                   setFormData({ ...formData, subCategoryId: e.target.value })
@@ -140,7 +140,7 @@ const FormFields = ({
                 required
               >
                 <option value="">Select Sub Category</option>
-                {subCategories?.map((subCat) => (
+                {filteredSubCategories?.map((subCat) => (
                   <option key={subCat?._id} value={subCat?._id}>
                     {subCat.name}
                   </option>

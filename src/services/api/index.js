@@ -1,6 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { CustomBaseQuery } from "./CustomBaseQuery.js";
-import { data } from "autoprefixer";
 // const baseUrl = import.meta.env.BACKEND_API_URL;
 
 export const MoccoMartApi = createApi({
@@ -19,7 +18,7 @@ export const MoccoMartApi = createApi({
         method: "POST",
         body: productData,
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Product", "Category"],
     }),
 
     updateProduct: builder.mutation({
@@ -28,7 +27,7 @@ export const MoccoMartApi = createApi({
         method: "PUT",
         body: product,
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Product", "Category"],
     }),
 
     deleteProduct: builder.mutation({
@@ -36,7 +35,7 @@ export const MoccoMartApi = createApi({
         url: `/products/${productId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ["Product", "Category"],
     }),
 
     getSubCategories: builder.query({
@@ -59,7 +58,7 @@ export const MoccoMartApi = createApi({
         method: "PUT",
         body: subCategory,
       }),
-      invalidatesTags: ["SubCategory"],
+      invalidatesTags: ["SubCategory", "Product"],
     }),
 
     deleteSubCategory: builder.mutation({
@@ -67,7 +66,7 @@ export const MoccoMartApi = createApi({
         url: `/sub-categories/${subCategoryId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["SubCategory"],
+      invalidatesTags: ["SubCategory", "Category", "Product"],
     }),
 
     getCategories: builder.query({
@@ -90,7 +89,7 @@ export const MoccoMartApi = createApi({
         method: "PUT",
         body: category,
       }),
-      invalidatesTags: ["Category"],
+      invalidatesTags: ["Category", "SubCategory", "Product"],
     }),
 
     deleteCategory: builder.mutation({
@@ -98,7 +97,7 @@ export const MoccoMartApi = createApi({
         url: `/categories/${categoryId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Category"],
+      invalidatesTags: ["Category", "SubCategory", "Product"],
     }),
 
     // auth api endpoints
