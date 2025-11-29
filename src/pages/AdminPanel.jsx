@@ -19,6 +19,7 @@ import {
   useCreateProductMutation,
   useCreateSubCategoryMutation,
   useCreateCategoryMutation,
+  useDeleteProductMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -177,6 +178,8 @@ function AdminPanel() {
   const [triggerCreateSubCategory] = useCreateSubCategoryMutation();
   const [triggerCreateCategory] = useCreateCategoryMutation();
 
+  const [triggerdeleteProduct] = useDeleteProductMutation();
+
   // State for all data
   const [categories, setCategories] = useState(
     allCategories ?? initialCategories
@@ -238,7 +241,7 @@ function AdminPanel() {
     setShowModal(true);
   };
 
-  const handleDelete = (type, id) => {
+  const handleDelete = async (type, id) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       switch (type) {
         case "category":
@@ -248,7 +251,8 @@ function AdminPanel() {
           setSubcategories(subcategories.filter((s) => s.id !== id));
           break;
         case "product":
-          setProducts(products.filter((p) => p.id !== id));
+          // setProducts(products.filter((p) => p.id !== id));
+          await triggerdeleteProduct(id).unwrap();
           break;
         case "order":
           setOrders(orders.filter((o) => o.id !== id));

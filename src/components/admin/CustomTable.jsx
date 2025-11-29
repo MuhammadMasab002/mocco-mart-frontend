@@ -40,7 +40,7 @@ const CustomTable = ({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {data?.map((item) => (
-              <tr key={item.id}>
+              <tr key={item?._id}>
                 {columns?.map((col) => (
                   <td
                     key={col.key}
@@ -61,7 +61,7 @@ const CustomTable = ({
                     <Edit2 size={18} />
                   </button>
                   <button
-                    onClick={() => handleDelete(type, item.id)}
+                    onClick={() => handleDelete(type, item?._id)}
                     className="text-red-600 hover:text-red-900"
                   >
                     <Trash2 size={18} />

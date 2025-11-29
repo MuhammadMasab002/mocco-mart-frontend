@@ -21,6 +21,14 @@ export const MoccoMartApi = createApi({
       invalidatesTags: ["Product"],
     }),
 
+    deleteProduct: builder.mutation({
+      query: (productId) => ({
+        url: `/products/${productId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Product"],
+    }),
+
     getSubCategories: builder.query({
       query: () => "/sub-categories",
       providesTags: ["SubCategory"],
@@ -77,6 +85,7 @@ export const MoccoMartApi = createApi({
 export const {
   useGetProductsQuery,
   useCreateProductMutation,
+  useDeleteProductMutation,
 
   useGetSubCategoriesQuery,
   useCreateSubCategoryMutation,
