@@ -24,6 +24,7 @@ import {
   useDeleteCategoryMutation,
   useUpdateProductMutation,
   useUpdateSubCategoryMutation,
+  useUpdateCategoryMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -183,6 +184,7 @@ function AdminPanel() {
 
   const [triggerUpdateProduct] = useUpdateProductMutation();
   const [triggerUpdateSubCategory] = useUpdateSubCategoryMutation();
+  const [triggerUpdateCategory] = useUpdateCategoryMutation();
 
   const [triggerDeleteProduct] = useDeleteProductMutation();
   const [triggerDeleteSubCategory] = useDeleteSubCategoryMutation();
@@ -276,15 +278,10 @@ function AdminPanel() {
 
     switch (modalType) {
       case "category":
-        if (editingItem) {
-          setCategories(
-            categories.map((c) =>
-              c.id === editingItem.id ? { ...formData, id: editingItem.id } : c
-            )
-          );
-        } else {
-          await triggerCreateCategory(formData).unwrap();
-        }
+        editingItem
+          ? await triggerUpdateCategory([editingItem?._id, formData]).unwrap()
+          : await triggerCreateCategory(formData).unwrap();
+
         break;
       case "subcategory":
         editingItem

@@ -84,6 +84,15 @@ export const MoccoMartApi = createApi({
       invalidatesTags: ["Category"],
     }),
 
+    updateCategory: builder.mutation({
+      query: ([categoryId, category]) => ({
+        url: `/categories/${categoryId}`,
+        method: "PUT",
+        body: category,
+      }),
+      invalidatesTags: ["Category"],
+    }),
+
     deleteCategory: builder.mutation({
       query: (categoryId) => ({
         url: `/categories/${categoryId}`,
@@ -131,6 +140,7 @@ export const {
   useGetCategoriesQuery,
   useLazyGetCategoriesQuery,
   useCreateCategoryMutation,
+  useUpdateCategoryMutation,
   useDeleteCategoryMutation,
 
   // auth api hooks
