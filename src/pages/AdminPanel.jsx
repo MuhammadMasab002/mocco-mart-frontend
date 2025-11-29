@@ -23,6 +23,7 @@ import {
   useDeleteSubCategoryMutation,
   useDeleteCategoryMutation,
   useUpdateProductMutation,
+  useUpdateSubCategoryMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -181,6 +182,7 @@ function AdminPanel() {
   const [triggerCreateCategory] = useCreateCategoryMutation();
 
   const [triggerUpdateProduct] = useUpdateProductMutation();
+  const [triggerUpdateSubCategory] = useUpdateSubCategoryMutation();
 
   const [triggerDeleteProduct] = useDeleteProductMutation();
   const [triggerDeleteSubCategory] = useDeleteSubCategoryMutation();
@@ -285,22 +287,19 @@ function AdminPanel() {
         }
         break;
       case "subcategory":
-        if (editingItem) {
-          setSubcategories(
-            subcategories.map((s) =>
-              s.id === editingItem.id ? { ...formData, id: editingItem.id } : s
-            )
-          );
-        } else {
-          await triggerCreateSubCategory(formData).unwrap();
-        }
+        editingItem
+          ? await triggerUpdateSubCategory([
+              editingItem?._id,
+              formData,
+            ]).unwrap()
+          : await triggerCreateSubCategory(formData).unwrap();
+
         break;
       case "product":
-        if (editingItem) {
-          await triggerUpdateProduct([editingItem?._id, formData]).unwrap();
-        } else {
-          await triggerCreateProduct(formData).unwrap();
-        }
+        editingItem
+          ? await triggerUpdateProduct([editingItem?._id, formData]).unwrap()
+          : await triggerCreateProduct(formData).unwrap();
+
         break;
       case "order":
         if (editingItem) {
