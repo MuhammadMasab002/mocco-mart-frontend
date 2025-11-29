@@ -43,6 +43,14 @@ export const MoccoMartApi = createApi({
       invalidatesTags: ["SubCategory"],
     }),
 
+    deleteSubCategory: builder.mutation({
+      query: (subCategoryId) => ({
+        url: `/sub-categories/${subCategoryId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["SubCategory"],
+    }),
+
     getCategories: builder.query({
       query: () => "/categories",
       providesTags: ["Category"],
@@ -89,6 +97,7 @@ export const {
 
   useGetSubCategoriesQuery,
   useCreateSubCategoryMutation,
+  useDeleteSubCategoryMutation,
 
   useGetCategoriesQuery,
   useLazyGetCategoriesQuery,

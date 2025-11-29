@@ -20,6 +20,7 @@ import {
   useCreateSubCategoryMutation,
   useCreateCategoryMutation,
   useDeleteProductMutation,
+  useDeleteSubCategoryMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -179,6 +180,7 @@ function AdminPanel() {
   const [triggerCreateCategory] = useCreateCategoryMutation();
 
   const [triggerdeleteProduct] = useDeleteProductMutation();
+  const [triggerdeleteSubCategory] = useDeleteSubCategoryMutation();
 
   // State for all data
   const [categories, setCategories] = useState(
@@ -248,10 +250,9 @@ function AdminPanel() {
           setCategories(categories.filter((c) => c.id !== id));
           break;
         case "subcategory":
-          setSubcategories(subcategories.filter((s) => s.id !== id));
+          await triggerdeleteSubCategory(id).unwrap();
           break;
         case "product":
-          // setProducts(products.filter((p) => p.id !== id));
           await triggerdeleteProduct(id).unwrap();
           break;
         case "order":
