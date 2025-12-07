@@ -28,7 +28,12 @@ const CustomModal = ({
             <X size={24} />
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4 text-black">
+        <form
+          onSubmit={handleSubmit}
+          method="post"
+          encType="multipart/form-data"
+          className="space-y-4 text-black"
+        >
           <FormFields
             formData={formData}
             setFormData={setFormData}

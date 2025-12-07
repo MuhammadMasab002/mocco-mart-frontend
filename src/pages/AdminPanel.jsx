@@ -25,6 +25,7 @@ import {
   useUpdateProductMutation,
   useUpdateSubCategoryMutation,
   useUpdateCategoryMutation,
+  useUploadImageMutation,
 } from "../services/api";
 
 // Initial Mock Data
@@ -190,6 +191,8 @@ function AdminPanel() {
   const [triggerDeleteSubCategory] = useDeleteSubCategoryMutation();
   const [triggerDeleteCategory] = useDeleteCategoryMutation();
 
+  const [triggerUploadImage] = useUploadImageMutation();
+
   // State for all data
   const [categories, setCategories] = useState(
     allCategories ?? initialCategories
@@ -247,7 +250,11 @@ function AdminPanel() {
   const handleEdit = (type, item) => {
     setModalType(type);
     setEditingItem(item);
-    setFormData(item);
+    // setFormData(item);
+    setFormData({
+      ...item,
+      image: item.image || "", // keep URL
+    });
     setShowModal(true);
   };
 
@@ -292,12 +299,26 @@ function AdminPanel() {
           : await triggerCreateSubCategory(formData).unwrap();
 
         break;
-      case "product":
-        editingItem
-          ? await triggerUpdateProduct([editingItem?._id, formData]).unwrap()
-          : await triggerCreateProduct(formData).unwrap();
+      case "product": {
+        const updatedData = { ...formData };
 
+        // If user selected NEW image (File)
+        if (formData.imageFile instanceof File) {
+          const fd = new FormData();
+          fd.append("image", formData?.imageFile);
+
+          const upload = await triggerUploadImage(fd).unwrap();
+
+          // delete updatedData.image;
+          updatedData.image = upload.url; // set new URL
+          delete updatedData.imageFile;
+        }
+
+        editingItem
+          ? await triggerUpdateProduct([editingItem?._id, updatedData]).unwrap()
+          : await triggerCreateProduct(updatedData).unwrap();
         break;
+      }
       case "order":
         if (editingItem) {
           setOrders(

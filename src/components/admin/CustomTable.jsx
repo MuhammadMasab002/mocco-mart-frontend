@@ -46,11 +46,21 @@ const CustomTable = ({
                     key={col.key}
                     className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
                   >
-                    {col.key === "categoryId" || col.key === "subCategoryId"
-                      ? item[col.key]?.name
-                      : col.key === "products"
-                      ? item[col.key]?.length
-                      : item[col.key]}
+                    {col.key === "categoryId" || col.key === "subCategoryId" ? (
+                      item[col.key]?.name
+                    ) : col.key === "products" ? (
+                      item[col.key]?.length
+                    ) : col.key === "image" ? (
+                      <div className="w-16 h-16">
+                        <img
+                          // src={item?.image}
+                          src={item?.[col.key]}
+                          className="w-full h-full object-cover rounded"
+                        />
+                      </div>
+                    ) : (
+                      item[col.key]
+                    )}
                   </td>
                 ))}
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">

@@ -182,6 +182,26 @@ const FormFields = ({
               />
             </div>
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Product Image
+            </label>
+            <input
+              type="file"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  setFormData({
+                    ...formData,
+                    imageFile: file, // file for upload
+                    image: formData.image, // keep URL
+                  });
+                }
+              }}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              // required
+            />
+          </div>
         </>
       );
     case "order":

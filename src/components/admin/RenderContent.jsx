@@ -63,6 +63,7 @@ const RenderContent = ({
           type="product"
           data={products}
           columns={[
+            { key: "image", label: "Image" },
             { key: "name", label: "Name" },
             { key: "categoryId", label: "Category" },
             { key: "subCategoryId", label: "Subcategory" },

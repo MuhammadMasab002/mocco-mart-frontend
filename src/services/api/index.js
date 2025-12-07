@@ -100,6 +100,17 @@ export const MoccoMartApi = createApi({
       invalidatesTags: ["Category", "SubCategory", "Product"],
     }),
 
+    // upload image
+    uploadImage: builder.mutation({
+      query: (imageFile) => {
+        return {
+          url: "/upload-image",
+          method: "POST",
+          body: imageFile,
+        };
+      },
+    }),
+
     // auth api endpoints
     registerUser: builder.mutation({
       query: (data) => ({
@@ -141,6 +152,8 @@ export const {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
+
+  useUploadImageMutation,
 
   // auth api hooks
   useRegisterUserMutation,
