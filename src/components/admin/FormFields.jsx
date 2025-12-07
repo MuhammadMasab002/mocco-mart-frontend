@@ -4,6 +4,7 @@ const FormFields = ({
   modalType,
   categories,
   subCategories,
+  featureOptions,
 }) => {
   const filteredSubCategories = subCategories.filter((subCat) => {
     return (
@@ -97,6 +98,7 @@ const FormFields = ({
             <input
               type="text"
               value={formData.name || ""}
+              placeholder="Enter product name"
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
@@ -151,11 +153,50 @@ const FormFields = ({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
+                Feature
+              </label>
+              <select
+                value={formData.feature ?? featureOptions[3]}
+                onChange={(e) =>
+                  setFormData({ ...formData, feature: e.target.value })
+                }
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              >
+                <option value="">Select Feature</option>
+                {featureOptions?.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Feature Expiry Date
+              </label>
+              <input
+                type="date"
+                value={formData.featureExpireAt || ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    featureExpireAt: e.target.value,
+                  })
+                }
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Price
               </label>
               <input
                 type="number"
                 value={formData.price || ""}
+                placeholder="0.00"
                 onChange={(e) =>
                   setFormData({
                     ...formData,
@@ -172,6 +213,7 @@ const FormFields = ({
               <input
                 type="number"
                 value={formData.stock || ""}
+                placeholder="0"
                 onChange={(e) =>
                   setFormData({
                     ...formData,

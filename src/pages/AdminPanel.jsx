@@ -165,6 +165,8 @@ const categoryData = [
   { name: "Books", value: 89 },
 ];
 
+const featureOptions = ["Flash Sales", "Best Sellers", "New Arrivals", "None"];
+
 const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"];
 
 function AdminPanel() {
@@ -371,7 +373,7 @@ function AdminPanel() {
   ];
 
   return (
-    <div className="flex w-full h-screen bg-gray-100">
+    <div className="relative flex w-full h-screen bg-gray-100">
       {/* Sidebar */}
       <AdminSidebar
         sidebarOpen={sidebarOpen}
@@ -407,7 +409,6 @@ function AdminPanel() {
           />
         </div>
       </div>
-
       {/* Modal */}
       <CustomModal
         formData={formData}
@@ -419,6 +420,7 @@ function AdminPanel() {
         subCategories={allSubCategories?.subCategories}
         editingItem={editingItem}
         handleSubmit={handleSubmit}
+        featureOptions={featureOptions}
       />
     </div>
   );

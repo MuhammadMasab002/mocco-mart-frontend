@@ -69,6 +69,7 @@ const RenderContent = ({
             { key: "subCategoryId", label: "Subcategory" },
             { key: "price", label: "Price" },
             { key: "stock", label: "Stock" },
+            { key: "feature", label: "Feature + Expiry" },
           ]}
           handleCreate={handleCreate}
           handleEdit={handleEdit}

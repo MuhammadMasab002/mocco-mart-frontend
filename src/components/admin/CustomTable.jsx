@@ -58,6 +58,19 @@ const CustomTable = ({
                           className="w-full h-full object-cover rounded"
                         />
                       </div>
+                    ) : col.key === "feature" ? (
+                      <div className="max-w-24 flex flex-col justify-center gap-1 text-center font-medium">
+                        <span className="text-xs px-2 py-1 rounded-full bg-red-100 text-red-800">
+                          {item[col.key] || "None"}
+                        </span>
+                        <span className="text-xs px-2 py-1 rounded-full bg-green-100 text-green-800">
+                          {item.featureExpireAt
+                            ? new Date(item.featureExpireAt).toLocaleDateString(
+                                "en-US"
+                              )
+                            : "0"}
+                        </span>
+                      </div>
                     ) : (
                       item[col.key]
                     )}
