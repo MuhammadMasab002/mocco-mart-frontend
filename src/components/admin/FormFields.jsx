@@ -156,7 +156,7 @@ const FormFields = ({
                 Feature
               </label>
               <select
-                value={formData.feature ?? featureOptions[3]}
+                value={formData.feature ?? featureOptions[3]?.label}
                 onChange={(e) =>
                   setFormData({ ...formData, feature: e.target.value })
                 }
@@ -165,8 +165,8 @@ const FormFields = ({
               >
                 <option value="">Select Feature</option>
                 {featureOptions?.map((item) => (
-                  <option key={item} value={item}>
-                    {item}
+                  <option key={item.value} value={item.value}>
+                    {item.label}
                   </option>
                 ))}
               </select>
@@ -185,6 +185,7 @@ const FormFields = ({
                   })
                 }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                // required
               />
             </div>
           </div>
@@ -204,6 +205,7 @@ const FormFields = ({
                   })
                 }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
             <div>
@@ -221,6 +223,7 @@ const FormFields = ({
                   })
                 }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
           </div>

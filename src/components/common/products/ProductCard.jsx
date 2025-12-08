@@ -2,15 +2,14 @@ import React from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import StarIcon from "@mui/icons-material/Star";
 import CustomButton from "../CustomButton";
 
 const ProductCard = ({
-  title,
+  name,
   image,
   price,
-  oldPrice,
-  discount,
+  oldPrice = 0,
+  discount = 10,
   onAddToCart,
   onClick,
   isWishlisted = false,
@@ -58,7 +57,7 @@ const ProductCard = ({
       <div className="relative w-full h-52 flex justify-center items-center overflow-hidden">
         <img
           src={image}
-          alt={title}
+          alt={name}
           className="object-cover object-center w-full h-full transition-transform duration-300 group-hover:scale-105"
         />
         {/* Add to Cart (Hover Button) */}
@@ -81,7 +80,7 @@ const ProductCard = ({
       {/* Product Info */}
       <div className="px-3 py-4 mb-2">
         <h3 className="text-sm md:text-base font-medium text-gray-800 line-clamp-2 truncate max-w-72">
-          {title}
+          {name}
         </h3>
 
         {/* Price */}

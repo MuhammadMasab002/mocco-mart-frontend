@@ -11,7 +11,7 @@ const getTimeParts = (sec) => {
   return { days, hours, minutes, seconds };
 };
 
-const FlashSales = ({ sampleProducts, handleFetchCategories }) => {
+const FlashSales = ({ featureProducts, handleFetchCategories }) => {
   // countdown duration: 3 days + 5 hours (in seconds)
   const DURATION = 3 * 24 * 3600 + 5 * 3600;
   const [remaining, setRemaining] = useState(DURATION);
@@ -71,9 +71,9 @@ const FlashSales = ({ sampleProducts, handleFetchCategories }) => {
       </div>
 
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {sampleProducts.map((p) => (
+        {featureProducts?.map((p) => (
           <ProductCard
-            key={p.id}
+            key={p._id}
             {...p}
             toggleWishlist={() => alert("Addedd to wishlist")}
             onAddToCart={() => alert("Added to cart")}

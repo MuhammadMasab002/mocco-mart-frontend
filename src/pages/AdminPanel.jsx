@@ -165,7 +165,12 @@ const categoryData = [
   { name: "Books", value: 89 },
 ];
 
-const featureOptions = ["Flash Sales", "Best Sellers", "New Arrivals", "None"];
+const featureOptions = [
+  { value: "FLASH_SALES", label: "Flash Sales" },
+  { value: "BEST_SELLERS", label: "Best Sellers" },
+  { value: "NEW_ARRIVALS", label: "New Arrivals" },
+  { value: "NONE", label: "None" },
+];
 
 const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"];
 

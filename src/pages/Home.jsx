@@ -7,6 +7,7 @@ import MusicExperienceBanner from "../components/home/MusicExperienceBanner";
 import FeatureSection from "../components/home/FeatureSection";
 import NewArrivalProducts from "../components/home/NewArrivalProducts";
 import {
+  useGetFeatureProductsQuery,
   useGetProductsQuery,
   useLazyGetCategoriesQuery,
 } from "../services/api";
@@ -16,7 +17,7 @@ const sampleProducts = [
     id: 1,
     image:
       "https://images.unsplash.com/photo-1656944227421-d0e8de487d9d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "HAVIT HV-G92 Playing shoes",
+    name: "HAVIT HV-G92 Playing shoes",
     price: "$120",
     oldPrice: "205",
     badge: "New",
@@ -27,7 +28,7 @@ const sampleProducts = [
     id: 2,
     image:
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80&auto=format&fit=crop",
-    title: "Sony WH-1000XM4 Headphones",
+    name: "Sony WH-1000XM4 Headphones",
     price: "$299",
     oldPrice: "440",
     badge: "Hot",
@@ -38,7 +39,7 @@ const sampleProducts = [
     id: 3,
     image:
       "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=80&auto=format&fit=crop",
-    title: "RGB Liquid Apple Laptop",
+    name: "RGB Liquid Apple Laptop",
     price: "$120",
     oldPrice: "160",
     badge: "Sale",
@@ -49,7 +50,7 @@ const sampleProducts = [
     id: 4,
     image:
       "https://images.unsplash.com/photo-1752442534054-ef5b221c39a3?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Gaming Mouse",
+    name: "Gaming Mouse",
     price: "$59",
     oldPrice: "111",
     badge: "Limited",
@@ -60,7 +61,7 @@ const sampleProducts = [
 
 function Home() {
   const { data: productData } = useGetProductsQuery();
-  console.log("product data--->", productData);
+  const { data: flashSalesProduct } = useGetFeatureProductsQuery("FLASH_SALES");
 
   const [
     triggerFetchCategories,
@@ -82,7 +83,7 @@ function Home() {
       <HeroSection />
       <section className="w-full max-w-7xl px-5 py-8 space-y-8 sm:space-y-12">
         <FlashSales
-          sampleProducts={sampleProducts}
+          featureProducts={flashSalesProduct?.products}
           handleFetchCategories={handleFetchCategories}
         />
         <BestSelling sampleProducts={sampleProducts} />
