@@ -62,6 +62,10 @@ const sampleProducts = [
 function Home() {
   const { data: productData } = useGetProductsQuery();
   const { data: flashSalesProduct } = useGetFeatureProductsQuery("FLASH_SALES");
+  const { data: bestSellingProduct } =
+    useGetFeatureProductsQuery("BEST_SELLING");
+  const { data: newArrivalsProduct } =
+    useGetFeatureProductsQuery("NEW_ARRIVALS");
 
   const [
     triggerFetchCategories,
@@ -86,17 +90,17 @@ function Home() {
           featureProducts={flashSalesProduct?.products}
           handleFetchCategories={handleFetchCategories}
         />
-        <BestSelling sampleProducts={sampleProducts} />
+        <BestSelling featureProducts={bestSellingProduct?.products} />
       </section>
       <section className="w-full max-w-7xl my-10 bg-black text-white rounded-lg overflow-hidden">
         {/* Music Experience / banner */}
         <MusicExperienceBanner />
       </section>
       <section className="w-full max-w-7xl px-5 py-8 space-y-8 sm:space-y-12">
-        <BestSelling sampleProducts={sampleProducts} />
+        <BestSelling featureProducts={bestSellingProduct?.products} />
       </section>
       <section className="w-full max-w-7xl py-10 space-y-8">
-        <NewArrivalProducts />
+        <NewArrivalProducts featureProducts={newArrivalsProduct?.products} />
       </section>
       <section className="w-full max-w-7xl py-4 sm:py-10 md:py-20">
         <FeatureSection />

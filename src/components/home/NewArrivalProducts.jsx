@@ -1,49 +1,10 @@
 import React from "react";
 import CustomButton from "../common/CustomButton";
 
-const arrivalData = [
-  {
-    id: 1,
-    title: "PlayStation 5",
-    description: "White and Blue version now on sale.",
-    image:
-      "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "#",
-    size: "large", // big left section
-  },
-  {
-    id: 2,
-    title: "Women’s Collections",
-    description: "Featured woman collections that give you another vibe.",
-    image:
-      "https://images.unsplash.com/photo-1739773375456-79be292cedb1?q=80&w=687&auto=format&fit=crop",
-    link: "#",
-    size: "medium", // right top
-  },
-  {
-    id: 3,
-    title: "Speakers",
-    description: "Amazon wireless speakers",
-    image:
-      "https://plus.unsplash.com/premium_photo-1677159499898-b061fb5bd2d7?q=80&w=764&auto=format&fit=crop",
-    link: "#",
-    size: "small", // bottom left
-  },
-  {
-    id: 4,
-    title: "Perfume",
-    description: "GUCCI INTENSE OUD EDP",
-    image:
-      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80&auto=format&fit=crop",
-    link: "#",
-    size: "small", // bottom right
-  },
-];
-
-const NewArrivalProducts = () => {
-  const largeItem = arrivalData.find((item) => item.size === "large");
-  const mediumItem = arrivalData.find((item) => item.size === "medium");
-  const smallItems = arrivalData.filter((item) => item.size === "small");
+const NewArrivalProducts = ({ featureProducts }) => {
+  const largeItem = featureProducts?.[0];
+  const mediumItem = featureProducts?.[1];
+  const smallItems = featureProducts?.slice(2);
 
   return (
     <>
@@ -62,18 +23,18 @@ const NewArrivalProducts = () => {
         {/* LARGE ITEM */}
         <div className="relative rounded overflow-hidden">
           <img
-            src={largeItem.image}
-            alt={largeItem.title}
+            src={largeItem?.image}
+            alt={largeItem?.name}
             className="w-full h-96 object-cover"
           />
           <div className="absolute bottom-6 left-6 bg-white/90 px-6 py-3 rounded shadow space-y-1">
-            <h3 className="text-xl font-bold text-black">{largeItem.title}</h3>
-            <p className="text-sm text-gray-700">{largeItem.description}</p>
+            <h3 className="text-xl font-bold text-black">{largeItem?.name}</h3>
+            <p className="text-sm text-gray-700">{largeItem?.description}</p>
             <div className="max-w-28 mt-3">
               <CustomButton
                 buttonText={"Shop Now"}
                 variant={"danger"}
-                onClick={largeItem.link}
+                onClick={largeItem?.link}
                 className="text-sm"
               />
             </div>
@@ -85,18 +46,18 @@ const NewArrivalProducts = () => {
           {/* MEDIUM ITEM */}
           <div className="relative rounded overflow-hidden h-52">
             <img
-              src={mediumItem.image}
-              alt={mediumItem.title}
+              src={mediumItem?.image}
+              alt={mediumItem?.name}
               className="w-full h-full object-cover"
             />
             <div className="absolute bottom-4 left-4 text-white">
-              <h4 className="text-lg font-bold">{mediumItem.title}</h4>
-              <p className="text-sm">{mediumItem.description}</p>
+              <h4 className="text-lg font-bold">{mediumItem?.name}</h4>
+              <p className="text-sm">{mediumItem?.description}</p>
               <div className="max-w-24 mt-3">
                 <CustomButton
                   buttonText={"Shop Now"}
                   variant={"secondary"}
-                  onClick={largeItem.link}
+                  onClick={mediumItem?.link}
                   className="text-xs"
                 />
               </div>
@@ -105,24 +66,24 @@ const NewArrivalProducts = () => {
 
           {/* SMALL ITEMS (LOOP) */}
           <div className="grid grid-cols-2 gap-4">
-            {smallItems.map((item) => (
+            {smallItems?.map((item) => (
               <div
-                key={item.id}
+                key={item?.id}
                 className="relative rounded overflow-hidden h-40"
               >
                 <img
-                  src={item.image}
-                  alt={item.title}
+                  src={item?.image}
+                  alt={item?.name}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-3 left-3 text-white">
-                  <h5 className="text-sm font-bold">{item.title}</h5>
-                  <p className="text-xs">{item.description}</p>
+                  <h5 className="text-sm font-bold">{item?.name}</h5>
+                  <p className="text-xs">{item?.description}</p>
                   <div className="max-w-24 mt-3">
                     <CustomButton
                       buttonText={"Shop Now"}
                       variant={"secondary"}
-                      onClick={largeItem.link}
+                      onClick={item?.link}
                       className="text-xs"
                     />
                   </div>

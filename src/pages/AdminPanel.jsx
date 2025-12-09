@@ -167,7 +167,7 @@ const categoryData = [
 
 const featureOptions = [
   { value: "FLASH_SALES", label: "Flash Sales" },
-  { value: "BEST_SELLERS", label: "Best Sellers" },
+  { value: "BEST_SELLING", label: "Best Selling" },
   { value: "NEW_ARRIVALS", label: "New Arrivals" },
   { value: "NONE", label: "None" },
 ];
