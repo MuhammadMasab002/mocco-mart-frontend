@@ -1,29 +1,42 @@
 import React, { useState } from "react";
 import ProductDetailInfo from "../components/common/products/ProductDetailInfo";
+import { useProductDetailsQuery } from "../services/api";
+import { useParams } from "react-router-dom";
 
 export const ProductDetail = () => {
+  // get product id from route params
+  const { productId } = useParams();
+  if (!productId) return;
+
   const [quantity, setQuantity] = useState(1);
 
+  const {
+    data: productDetail,
+    error,
+    isLoading,
+  } = useProductDetailsQuery(productId);
+  console.log("Product Details:", productDetail);
   return (
     <div className="w-full text-black max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* LEFT: Product Image */}
       <div className="w-full flex justify-center">
         <img
-          src="https://images.unsplash.com/photo-1656944227421-d0e8de487d9d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="product"
+          src={productDetail?.product?.image}
+          alt={productDetail?.product?.name}
           className="w-full max-w-md rounded shadow"
         />
       </div>
 
       {/* RIGHT: Details Info */}
       <ProductDetailInfo
-        title="Havic HV G-92 Gamepad"
+        title={productDetail?.product?.name}
         // rating={4}
         reviews={150}
         description={
+          productDetail?.product?.description ??
           "All black Nike sneakers, get a free legit check in the SOLESTAGE app now. "
         }
-        price={192.0}
+        price={productDetail?.product?.price}
         colours={["bg-gray-900", "bg-red-500"]}
         sizes={["XS", "S", "M", "L", "XL"]}
         quantity={quantity}

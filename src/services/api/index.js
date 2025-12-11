@@ -18,6 +18,11 @@ export const MoccoMartApi = createApi({
       providesTags: ["Product"],
     }),
 
+    productDetails: builder.query({
+      query: (productId) => `/products/${productId}`,
+      providesTags: ["Product"],
+    }),
+
     createProduct: builder.mutation({
       query: (productData) => ({
         url: "/products",
@@ -145,6 +150,7 @@ export const MoccoMartApi = createApi({
 export const {
   useGetProductsQuery,
   useGetFeatureProductsQuery,
+  useProductDetailsQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,

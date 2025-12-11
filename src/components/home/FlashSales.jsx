@@ -11,7 +11,7 @@ const getTimeParts = (sec) => {
   return { days, hours, minutes, seconds };
 };
 
-const FlashSales = ({ featureProducts, handleFetchCategories }) => {
+const FlashSales = ({ featureProducts, handleFetchCategories, handleClick }) => {
   // countdown duration: 3 days + 5 hours (in seconds)
   const DURATION = 3 * 24 * 3600 + 5 * 3600;
   const [remaining, setRemaining] = useState(DURATION);
@@ -77,6 +77,7 @@ const FlashSales = ({ featureProducts, handleFetchCategories }) => {
             {...p}
             toggleWishlist={() => alert("Addedd to wishlist")}
             onAddToCart={() => alert("Added to cart")}
+            onClick={handleClick}
           />
         ))}
       </div>

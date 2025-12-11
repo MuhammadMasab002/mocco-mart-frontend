@@ -28,7 +28,7 @@ const ProductDetailInfo = ({
       <div className="flex items-center gap-6">
         <p className="font-medium">Colours:</p>
         <div className="flex gap-3">
-          {colours.map((c, index) => (
+          {colours?.map((c, index) => (
             <span
               key={index}
               className={`w-5 h-5 rounded-full border cursor-pointer ${c}`}
@@ -59,12 +59,14 @@ const ProductDetailInfo = ({
           <Remove />
         </button>
 
-        <div className="w-12">
+        <div className="w-full min-w-12 max-w-14">
           <CustomFormInput
-            type="number"
-            className="text-black !px-2 text-center"
+            type="text"
+            className="text-black !px-2 !text-center"
             value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) =>
+              setQuantity(+e.target.value > 0 ? +e.target.value : 1)
+            }
           />
         </div>
 

@@ -5,6 +5,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CustomButton from "../CustomButton";
 
 const ProductCard = ({
+  _id,
   name,
   image,
   price,
@@ -18,7 +19,7 @@ const ProductCard = ({
   return (
     <div
       className="relative bg-white shadow-sm hover:shadow-lg hover:shadow-red-100 rounded-lg overflow-hidden cursor-pointer group transition"
-      onClick={onClick}
+      onClick={() => onClick(_id)}
     >
       {/* Discount Badge */}
       {discount && (

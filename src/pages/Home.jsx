@@ -8,59 +8,61 @@ import FeatureSection from "../components/home/FeatureSection";
 import NewArrivalProducts from "../components/home/NewArrivalProducts";
 import {
   useGetFeatureProductsQuery,
-  useGetProductsQuery,
+  // useGetProductsQuery,
   useLazyGetCategoriesQuery,
 } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
-const sampleProducts = [
-  {
-    id: 1,
-    image:
-      "https://images.unsplash.com/photo-1656944227421-d0e8de487d9d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "HAVIT HV-G92 Playing shoes",
-    price: "$120",
-    oldPrice: "205",
-    badge: "New",
-    discount: "40",
-    isWishlisted: "true",
-  },
-  {
-    id: 2,
-    image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80&auto=format&fit=crop",
-    name: "Sony WH-1000XM4 Headphones",
-    price: "$299",
-    oldPrice: "440",
-    badge: "Hot",
-    discount: "26",
-    isWishlisted: "false",
-  },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=80&auto=format&fit=crop",
-    name: "RGB Liquid Apple Laptop",
-    price: "$120",
-    oldPrice: "160",
-    badge: "Sale",
-    discount: "10",
-    isWishlisted: "true",
-  },
-  {
-    id: 4,
-    image:
-      "https://images.unsplash.com/photo-1752442534054-ef5b221c39a3?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Gaming Mouse",
-    price: "$59",
-    oldPrice: "111",
-    badge: "Limited",
-    discount: "21",
-    isWishlisted: "false",
-  },
-];
+// const sampleProducts = [
+//   {
+//     id: 1,
+//     image:
+//       "https://images.unsplash.com/photo-1656944227421-d0e8de487d9d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     name: "HAVIT HV-G92 Playing shoes",
+//     price: "$120",
+//     oldPrice: "205",
+//     badge: "New",
+//     discount: "40",
+//     isWishlisted: "true",
+//   },
+//   {
+//     id: 2,
+//     image:
+//       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80&auto=format&fit=crop",
+//     name: "Sony WH-1000XM4 Headphones",
+//     price: "$299",
+//     oldPrice: "440",
+//     badge: "Hot",
+//     discount: "26",
+//     isWishlisted: "false",
+//   },
+//   {
+//     id: 3,
+//     image:
+//       "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=80&auto=format&fit=crop",
+//     name: "RGB Liquid Apple Laptop",
+//     price: "$120",
+//     oldPrice: "160",
+//     badge: "Sale",
+//     discount: "10",
+//     isWishlisted: "true",
+//   },
+//   {
+//     id: 4,
+//     image:
+//       "https://images.unsplash.com/photo-1752442534054-ef5b221c39a3?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//     name: "Gaming Mouse",
+//     price: "$59",
+//     oldPrice: "111",
+//     badge: "Limited",
+//     discount: "21",
+//     isWishlisted: "false",
+//   },
+// ];
 
 function Home() {
-  const { data: productData } = useGetProductsQuery();
+  const navigate = useNavigate();
+  // const { data: productData } = useGetProductsQuery();
   const { data: flashSalesProduct } = useGetFeatureProductsQuery("FLASH_SALES");
   const { data: bestSellingProduct } =
     useGetFeatureProductsQuery("BEST_SELLING");
@@ -81,6 +83,10 @@ function Home() {
     }
   };
 
+  const handleClick = (productId) => {
+    navigate(`/product-detail/${productId}`);
+  };
+
   return (
     <div className="w-full h-full justify-center items-center flex flex-col gap-4 my-4">
       {/* <h1 className="text-3xl font-bold text-red-500">Welcome to Mocco Mart</h1> */}
@@ -89,6 +95,7 @@ function Home() {
         <FlashSales
           featureProducts={flashSalesProduct?.products}
           handleFetchCategories={handleFetchCategories}
+          handleClick={handleClick}
         />
         <BestSelling featureProducts={bestSellingProduct?.products} />
       </section>
