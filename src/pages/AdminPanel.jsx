@@ -28,74 +28,6 @@ import {
   useUploadImageMutation,
 } from "../services/api";
 
-// Initial Mock Data
-const initialCategories = [
-  {
-    id: 1,
-    name: "Electronics",
-    description: "Electronic devices and accessories",
-    productCount: 45,
-  },
-  {
-    id: 2,
-    name: "Clothing",
-    description: "Men and Women fashion",
-    productCount: 120,
-  },
-  {
-    id: 3,
-    name: "Books",
-    description: "Books and magazines",
-    productCount: 89,
-  },
-];
-
-const initialSubcategories = [
-  { id: 1, name: "Smartphones", categoryId: 1, categoryName: "Electronics" },
-  { id: 2, name: "Laptops", categoryId: 1, categoryName: "Electronics" },
-  { id: 3, name: "Men Shirts", categoryId: 2, categoryName: "Clothing" },
-  { id: 4, name: "Women Dresses", categoryId: 2, categoryName: "Clothing" },
-];
-
-const initialProducts = [
-  {
-    id: 1,
-    name: "iPhone 15 Pro",
-    category: "Electronics",
-    subcategory: "Smartphones",
-    price: 999,
-    stock: 45,
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "MacBook Pro M3",
-    category: "Electronics",
-    subcategory: "Laptops",
-    price: 1999,
-    stock: 8,
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Cotton T-Shirt",
-    category: "Clothing",
-    subcategory: "Men Shirts",
-    price: 29,
-    stock: 150,
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Summer Dress",
-    category: "Clothing",
-    subcategory: "Women Dresses",
-    price: 59,
-    stock: 3,
-    status: "Active",
-  },
-];
-
 const initialOrders = [
   {
     id: 1001,
@@ -201,15 +133,6 @@ function AdminPanel() {
   const [triggerUploadImage] = useUploadImageMutation();
 
   // State for all data
-  const [categories, setCategories] = useState(
-    allCategories ?? initialCategories
-  );
-  const [subcategories, setSubcategories] = useState(
-    allSubCategories ?? initialSubcategories
-  );
-  const [products, setProducts] = useState(
-    allProducts?.products ?? initialProducts
-  );
   const [orders, setOrders] = useState(initialOrders);
   const [users, setUsers] = useState(initialUsers);
 
@@ -234,7 +157,7 @@ function AdminPanel() {
     },
     {
       title: "Total Products",
-      value: products?.length,
+      value: allProducts?.products?.length,
       icon: Package,
       color: "bg-yellow-500",
     },
